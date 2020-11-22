@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.aether</groupId>
 	<artifactId>lib</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>AetherLib</name>
 
 	<build>
@@ -47,7 +47,8 @@
 		<connection>scm:git:git@github.com:AetherialKilix/AetherLib.git</connection>
 		<url>scm:git:git@github.com:AetherialKilix/AetherLib.git</url>
 		<developerConnection>scm:git:git@github.com:AetherialKilix/AetherLib.git</developerConnection>
-	</scm>
+	  <tag>v0.0.1</tag>
+  </scm>
 
 	<distributionManagement>
 		<snapshotRepository>
