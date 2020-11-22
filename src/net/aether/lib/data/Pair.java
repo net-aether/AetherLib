@@ -2,14 +2,14 @@ package net.aether.lib.data;
 
 import java.util.*;
 
-public class KeyValuePair<K, V> {
+public class Pair<K, V> {
 
 	private K key;
 	private V value;
 	
 	private boolean unlocked = true;
 	
-	public KeyValuePair(K key, V value) {
+	public Pair(K key, V value) {
 		this.key = key;
 		this.value = value;
 	}
@@ -38,15 +38,15 @@ public class KeyValuePair<K, V> {
 		return ! unlocked;
 	}
 	
-	public static <K, V> KeyValuePair<K, V> fromMap(Map<K, V> map, int index) {
+	public static <K, V> Pair<K, V> fromMap(Map<K, V> map, int index) {
 		K key = new ArrayList<K> (map.keySet()).get(index);
 		V value = map.get(key);
 		
-		return new KeyValuePair<K, V>(key, value);
+		return new Pair<K, V>(key, value);
 	}
 	
-	public static <K, V> List<KeyValuePair<K, V>> convertMap(Map<K, V> map) {
-		List<KeyValuePair<K, V>> out = new ArrayList<>();
+	public static <K, V> List<Pair<K, V>> convertMap(Map<K, V> map) {
+		List<Pair<K, V>> out = new ArrayList<>();
 		for (int i = 0; i < map.size(); i++) out.add(fromMap(map, i));
 		return out;
 	}

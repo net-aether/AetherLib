@@ -34,33 +34,33 @@ public class AetherList<T> implements List<T> {
 	
 	/**
 	 * Crushes a Map down into a List.<br>
-	 * This is done by creating a {@link KeyValuePair} of every entry, and putting those into a list.<br>
+	 * This is done by creating a {@link Pair} of every entry, and putting those into a list.<br>
 	 * Accessing either the key or the value is not a fun thing to do, so this is probably most useful for easier outputs using {@link AetherList#multilineString()}
 	 * @param <K>
 	 * @param <V>
 	 * @param map
 	 * @return
 	 */
-	public static <K, V> AetherList<KeyValuePair<K, V>> crushMap(Map<K, V> map) {
-		return new AetherList<>(KeyValuePair.convertMap(map));
+	public static <K, V> AetherList<Pair<K, V>> crushMap(Map<K, V> map) {
+		return new AetherList<>(Pair.convertMap(map));
 	}
 	
 	/**
 	 * Crushes a Dictionary down into a List.<br>
-	 * This is done by creating a {@link KeyValuePair} of every pair, and putting those inta a list.<br>
+	 * This is done by creating a {@link Pair} of every pair, and putting those inta a list.<br>
 	 * Accessing either the key or the value is not a fun thing to do, so this is probably most useful for easier outputs using {@link AetherList#multilineString()}
 	 * @param <K>
 	 * @param <V>
 	 * @param dict
 	 * @see #crushMap(Map)
 	 */
-	public static <K, V> AetherList<KeyValuePair<K, V>> crushDictionary(Dictionary<K, V> dict) {
-		AetherList<KeyValuePair<K, V>> values = new AetherList<>();
+	public static <K, V> AetherList<Pair<K, V>> crushDictionary(Dictionary<K, V> dict) {
+		AetherList<Pair<K, V>> values = new AetherList<>();
 		
 		Enumeration<K> enumeration = dict.keys();
 		while (enumeration.hasMoreElements()) {
 			K key = enumeration.nextElement();
-			values.add(new KeyValuePair<K, V>(key, dict.get(key)));
+			values.add(new Pair<K, V>(key, dict.get(key)));
 		}
 		
 		return values;
