@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.aether</groupId>
-	<artifactId>AetherLib</artifactId>
-	<version>1.0.0</version>
+	<artifactId>lib</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>AetherLib</name>
-	
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -16,6 +18,47 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<releaseProfiles>releases</releaseProfiles>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- TODO: fix release -->
+	<scm>
+		<connection>scm:git:git@github.com:AetherialKilix/AetherLib.git</connection>
+		<url>scm:git:git@github.com:AetherialKilix/AetherLib.git</url>
+		<developerConnection>scm:git:git@github.com:AetherialKilix/AetherLib.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>cheos-snapshots</id>
+			<url>http://45.81.232.185:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>cheos-releases</id>
+			<url>http://45.81.232.185:8081/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
 </project>
