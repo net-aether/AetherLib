@@ -54,11 +54,11 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>cheos-snapshots</id>
-			<url>http://45.81.232.185:8081/repository/maven-snapshots/</url>
+			<url>http://maven.cheos.dev/repository/maven-snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>cheos-releases</id>
-			<url>http://45.81.232.185:8081/repository/maven-releases/</url>
+			<url>http://maven.cheos.dev/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
 </project>
