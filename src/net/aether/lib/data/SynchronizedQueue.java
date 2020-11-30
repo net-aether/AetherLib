@@ -16,5 +16,5 @@ public class SynchronizedQueue<T> extends SimpleQueue<T> {
 	@Override public synchronized boolean insert(T t, int idx) { return super.insert(t, idx); }
 	@Override public synchronized boolean push  (T t         ) { return super.push  (t     ); }
 	@Override public synchronized T       pop   (            ) { return super.pop   (      ); }
-	@Override public synchronized T       get   (     int idx) { return super.get   (idx   ); }
+	@Override public synchronized T       get   (     int idx) { return super.get   (   idx); }
 }
