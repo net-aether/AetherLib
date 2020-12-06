@@ -16,7 +16,8 @@ public class FileContentReader {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			AetherList<String> out = new AetherList<>();
-			while (reader.ready()) out.add(reader.readLine());		
+			while (reader.ready()) out.add(reader.readLine());
+			reader.close();	
 			return out.toStringArray();
 		} catch (Exception e) {
 			return new String[0];
@@ -27,7 +28,8 @@ public class FileContentReader {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String out = "";
-			while (reader.ready()) out += reader.readLine() + "\n";
+			while (reader.ready()) out += reader.readLine() + (reader.ready() ? "\n" : "");
+			reader.close();
 			return out;
 		} catch (Exception e) {
 			return "";
