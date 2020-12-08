@@ -89,7 +89,13 @@ public class AetherList<T> implements List<T> {
 
 	@Override
 	public T[] toArray() {
-		return values.clone();
+		return values;
+	}
+	
+	public String[] toStringArray() {
+		String[] out = new String[values.length];
+		for (int i = 0; i < values.length; i++) out[i] = values[i].toString();
+		return out;
 	}
 
 	@Override

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.aether</groupId>
 	<artifactId>lib</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-1-SNAPSHOT</version>
 	<name>AetherLib</name>
 
 	<build>
@@ -54,11 +54,11 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>cheos-snapshots</id>
-			<url>http://maven-snapshots.cheos.dev</url>
+			<url>https://maven-snapshots.cheos.dev</url>
 		</snapshotRepository>
 		<repository>
 			<id>cheos-releases</id>
-			<url>http://maven-releases.cheos.dev</url>
+			<url>https://maven-releases.cheos.dev</url>
 		</repository>
 	</distributionManagement>
 </project>
