@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.xml.ws.spi.http.HttpExchange;
-import javax.xml.ws.spi.http.HttpHandler;
-
 import net.aether.lib.exceptions.InvalidTypeException;
 
 //TODO
@@ -45,87 +42,109 @@ public class AetherConfiguration implements FileConfiguration {
 	private final AetherConfigurationLoader loader;
 	private HashMap<String, AetherConfigurationPair> valueMap = new HashMap<>();
 	
+	@Override
 	public void set(String path, Object value) {}
+	@Override
 	public void setFallback(String path, String fallback) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public String getFallback(String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public void setType(String path, Class<?> type) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public void setType(String path, String type) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public String getTypeName(String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public Class<?> getType(String path) throws ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public void trySet(String path, Object value) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public void forceSet(String path, Object value) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public String[] getComment(String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public void setComment(String path, String... comment) {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
 	public boolean isSet(String path) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
 	public boolean hasFallback(String path) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
 	public boolean isList(String path) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
 	public Object get(String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public <T> T get(String path, Class<? extends T> parseToClass) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public boolean getBoolean(String path) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
 	public int getInt(String path) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
 	public String getString(String path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
 	public float getFloat(String path) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
 	public double getDouble(String path) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
 	public long getLong(String path) throws InvalidTypeException {
 		// TODO Auto-generated method stub
 		return 0;

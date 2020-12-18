@@ -34,6 +34,7 @@ public class DoubleHashedMap<K, V> implements Map<K, V> {
 		for (Pair<K, V> pair : initialValues) put(pair.getKey(), pair.getValue());
 	}
 	
+	@SafeVarargs
 	public static <K, V> DoubleHashedMap<K, V> combine(Map<? extends K, ? extends V>... maps) {
 		DoubleHashedMap<K, V> out = new DoubleHashedMap<>();
 		
@@ -100,7 +101,7 @@ public class DoubleHashedMap<K, V> implements Map<K, V> {
 	@Override
 	public void clear() {
 		map.clear();
-		reverseMap.clear();		
+		reverseMap.clear();
 	}
 
 	@Override
