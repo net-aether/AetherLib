@@ -2,8 +2,8 @@ package net.aether.lib.data;
 
 import java.util.*;
 
-import net.aether.lib.lambda.LambdaVoid1;
-import net.aether.lib.lambda.LambdaVoid2;
+import net.aether.lib.lambda.Consumer;
+import net.aether.lib.lambda.BiConsumer;
 
 @SuppressWarnings("unchecked")
 public class AetherList<T> implements List<T> {
@@ -309,12 +309,12 @@ public class AetherList<T> implements List<T> {
 	 * Executes the runnable code for every element of the list
 	 * @param runnable
 	 */
-	public void forEach(LambdaVoid1<T> runnable) { for (T t : values) runnable.call(t); }
+	public void forEach(Consumer<T> runnable) { for (T t : values) runnable.call(t); }
 	/**
 	 * Executes the runnable code for every element of the list, and gives the index via the <span style="color:orange">a</span> variable
 	 * @param runnable
 	 */
-	public void advancedForEach(LambdaVoid2<T, Integer> runnable) {
+	public void advancedForEach(BiConsumer<T, Integer> runnable) {
 		int i = 0;
 		for (T t : values) {
 			runnable.call(t, i);
