@@ -6,6 +6,7 @@ name: Maven Package
 on:
   release:
     types: [created]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,13 +22,13 @@ jobs:
         server-id: cheos-repo # Value of the distributionManagement/repository/id field of the pom.xml
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
-        settings-path: ${{ github.workspace }}/.m2/ # location for the settings.xml file
+        settings-path: ${{ github.workspace }}/.github/workflows/ # location for the settings.xml file
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/.m2/settings.xml
+      run: mvn deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
       env:
         MAVEN_USERNAME: ${{ secrets.CHEOS_MAVEN_DEPLOY_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CHEOS_MAVEN_DEPLOY_PASSWORD }}
