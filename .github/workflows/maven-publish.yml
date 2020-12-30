@@ -27,7 +27,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Publish to Cheos\' Maven Repository
+    - name: Publish to Cheos' Maven Repository
       run: mvn deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
       env:
         MAVEN_USERNAME: ${{ secrets.CHEOS_MAVEN_DEPLOY_USERNAME }}
