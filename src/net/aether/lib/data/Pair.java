@@ -3,11 +3,11 @@ package net.aether.lib.data;
 import java.util.*;
 
 public class Pair<K, V> {
-
+	
 	private K key;
 	private V value;
 	
-	private boolean unlocked = true;
+	private boolean locked = false;
 	
 	public Pair(K key, V value) {
 		this.key = key;
@@ -31,18 +31,18 @@ public class Pair<K, V> {
 	}
 	
 	public void lock() {
-		unlocked = false;
+		locked = true;
 	}
 	
 	public boolean isLocked() {
-		return ! unlocked;
+		return locked;
 	}
 	
 	public static <K, V> Pair<K, V> fromMap(Map<K, V> map, int index) {
-		K key = new ArrayList<K> (map.keySet()).get(index);
+		K key = new ArrayList<> (map.keySet()).get(index);
 		V value = map.get(key);
 		
-		return new Pair<K, V>(key, value);
+		return new Pair<>(key, value);
 	}
 	
 	public static <K, V> List<Pair<K, V>> convertMap(Map<K, V> map) {

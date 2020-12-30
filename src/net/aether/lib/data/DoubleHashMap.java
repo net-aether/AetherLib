@@ -10,7 +10,7 @@ import java.util.*;
  * @param <K>
  * @param <V>
  */
-public class DoubleHashedMap<K, V> implements Map<K, V> {
+public class DoubleHashMap<K, V> implements Map<K, V> {
 
 	private HashMap<K, V> map 				= new HashMap<>();
 	private HashMap<V, List<K>> reverseMap 	= new HashMap<>();
@@ -18,25 +18,25 @@ public class DoubleHashedMap<K, V> implements Map<K, V> {
 	/**
 	 * Construcs an Empty DoubleHashedMap
 	 */
-	public DoubleHashedMap() {}
+	public DoubleHashMap() {}
 	/**
 	 * Constructs a DoubleHashMap filled with the pairs of the supplied map
 	 * @param initialValues
 	 */
-	public DoubleHashedMap(Map<? extends K, ? extends V> initialValues) {
+	public DoubleHashMap(Map<? extends K, ? extends V> initialValues) {
 		putAll(initialValues); // Puts every single pair into the map, this needs to be done, so that the reverseMap will get filled as well
 	}
 	/**
 	 * Constructs a DoubleHashMap filles with the supplied pairs.
 	 * @param initialValues
 	 */
-	public DoubleHashedMap(Pair<K, V>[] initialValues) {
+	public DoubleHashMap(Pair<K, V>[] initialValues) {
 		for (Pair<K, V> pair : initialValues) put(pair.getKey(), pair.getValue());
 	}
 	
 	@SafeVarargs
-	public static <K, V> DoubleHashedMap<K, V> combine(Map<? extends K, ? extends V>... maps) {
-		DoubleHashedMap<K, V> out = new DoubleHashedMap<>();
+	public static <K, V> DoubleHashMap<K, V> combine(Map<? extends K, ? extends V>... maps) {
+		DoubleHashMap<K, V> out = new DoubleHashMap<>();
 		
 		for (Map<? extends K, ? extends V> map : maps) out.putAll(map);
 		

@@ -1,7 +1,7 @@
 package net.aether.lib.data;
 
 /**
- * Used to avoid {@link NullPointerException}
+ * Used to avoid {@link NullPointerException NullPointerExceptions}
  * @author Kilix
  *
  */

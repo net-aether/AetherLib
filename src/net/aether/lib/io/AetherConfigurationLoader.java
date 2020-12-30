@@ -2,7 +2,7 @@ package net.aether.lib.io;
 
 import java.io.File;
 
-import net.aether.lib.data.DoubleHashedMap;
+import net.aether.lib.data.DoubleHashMap;
 
 /**
  * This is not a proper loader.<br>
@@ -19,7 +19,7 @@ public class AetherConfigurationLoader {
 	/**
 	 * Contains all the predefined types by the 'system'
 	 */
-	private static final DoubleHashedMap<String, String> systemTypes = new DoubleHashedMap<>();
+	private static final DoubleHashMap<String, String> systemTypes = new DoubleHashMap<>();
 	/*
 	 * Register all the predefined types
 	 */
@@ -34,7 +34,7 @@ public class AetherConfigurationLoader {
 	/**
 	 * Contains all the user-defined types
 	 */
-	private DoubleHashedMap<String, String> knownTypes = new DoubleHashedMap<>();
+	private DoubleHashMap<String, String> knownTypes = new DoubleHashMap<>();
 
 	/**
 	 * Registers the supplied class as a known type

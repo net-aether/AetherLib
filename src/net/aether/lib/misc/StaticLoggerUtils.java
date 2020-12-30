@@ -1,4 +1,4 @@
-package net.aether.lib.msc;
+package net.aether.lib.misc;
 
 public class StaticLoggerUtils {
 
