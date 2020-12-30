@@ -1,88 +1,43 @@
 package net.aether.lib.data;
 
-import java.util.*;
-
 /**
  * Used to avoid {@link NullPointerException}
  * @author Kilix
  *
  */
-public final class Void implements 
-	Comparable<Void>, 
-	Iterable<Void>, 
-	Iterator<Void>,
-	List<Void> {
+public final class Void {
 	
 	/**
-	 * Void == Void, no constructor needed.
-	 */
-	private Void() {}
-	/**
-	 * Literally just new Void(). You could just use that instead... 
+	 * This is the OG
 	 */
 	public static final Void INSTANCE = new Void();
-	public static final Void[] AS_ARRAY = new Void[] { INSTANCE };
-	public static final ListIterator<Void> AS_LIST_ITERATOR = new AetherIterator<Void>(AS_ARRAY);
+	
+	private Void() {}
 	
 	/**
-	 * @return "null"
+	 * @return "null", as a String!
 	 */
-	public String toString() { return ""; }
+	public String toString() { return "null"; }
 	/**
-	 * @return {@link Void#INSTANCE}
+	 * @return {@link #INSTANCE itself}
 	 */
-	protected Void clone() { return INSTANCE; }
+	protected Object clone() throws CloneNotSupportedException { return this; }
 	/**
-	 * @return {@link #INSTANCE}.hashCode()
-	 */
-	public int hashCode() { return 0; }
-	/**
-	 * @return true if both objects are the same class.
+	 * @return true if obj is of type {@link Void}
 	 */
 	public boolean equals(Object obj) { return obj instanceof Void; }
 	/**
-	 * Does nothing, Void is Void. Void was always final, and will always be final.
+	 * @return 0
 	 */
-	protected void finalize() {}
+	public int hashCode() { return 0; }
 	
 	/**
-	 * @return 0, because Void = Void;
+	 * Checks if the Object is not null, if it is, returns {@link #INSTANCE the OG}
+	 * @param in
+	 * @return a non-null Object, or {@link #INSTANCE the OG}
 	 */
-	public int compareTo(Void v) { return 0; }
-	/**
-	 * @return {@link #INSTANCE}
-	 */
-	public Iterator<Void> iterator() { return this; }
-	/**
-	 * @return false, because it is just the same 'value'
-	 */
-	public boolean hasNext() { return false; }
-	/**
-	 * @return {@link #INSTANCE}
-	 */
-	public Void next() { return this; }
-	
-	public int size() { return 0; }
-	public boolean isEmpty() { return true; }
-	public boolean contains(Object o) { return equals(o); }
-	public Object[] toArray() { return AS_ARRAY; }
-	public <T> T[] toArray(T[] a) { return a; }
-	public boolean add(Void e) { return false; }
-	public boolean remove(Object o) { return false; }
-	public boolean containsAll(Collection<?> c) { return false; }
-	public boolean addAll(Collection<? extends Void> c) { return false; }
-	public boolean addAll(int index, Collection<? extends Void> c) { return false; }
-	public boolean removeAll(Collection<?> c) { return false; }
-	public boolean retainAll(Collection<?> c) { return false; }
-	public void clear() {}
-	public Void get(int index) { return this; }
-	public Void set(int index, Void element) { return this; } 
-	public void add(int index, Void element) {}
-	public Void remove(int index) { return this; }
-	public int indexOf(Object o) { return 0; }
-	public int lastIndexOf(Object o) { return 0; }
-	public ListIterator<Void> listIterator() { return AS_LIST_ITERATOR; }
-	public ListIterator<Void> listIterator(int index) { return AS_LIST_ITERATOR; }
-	public List<Void> subList(int fromIndex, int toIndex) { return this; }
+	public static Object check(Object in) {
+		return in == null ? new Void() : in;
+	}
 	
 }

@@ -2,12 +2,12 @@ package net.aether.lib.data;
 
 import java.util.*;
 
-import net.aether.lib.lambda.Consumer;
 import net.aether.lib.lambda.BiConsumer;
+import net.aether.lib.lambda.Consumer;
 
 @SuppressWarnings("unchecked")
 public class AetherList<T> implements List<T> {
-
+	
 	private T[] values;
 	private Class<T> clazz;
 	
@@ -21,14 +21,8 @@ public class AetherList<T> implements List<T> {
 		clazz = (Class<T>) values.getClass().getComponentType();
 	}
 	
-	public AetherList(List<T> values) {
+	public AetherList(Collection<T> values) {
 		this.values = (T[]) values.toArray();
-		clazz = (Class<T>) values.getClass().getComponentType();
-	}
-	
-	
-	public AetherList(Set<T> values) {
-		addAll(values);
 		clazz = (Class<T>) values.getClass().getComponentType();
 	}
 	
@@ -60,7 +54,7 @@ public class AetherList<T> implements List<T> {
 		Enumeration<K> enumeration = dict.keys();
 		while (enumeration.hasMoreElements()) {
 			K key = enumeration.nextElement();
-			values.add(new Pair<K, V>(key, dict.get(key)));
+			values.add(new Pair<>(key, dict.get(key)));
 		}
 		
 		return values;
@@ -70,23 +64,23 @@ public class AetherList<T> implements List<T> {
 	public int size() {
 		return values.length;
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		return values.length == 0;
 	}
-
+	
 	@Override
 	public boolean contains(Object o) {
 		for (T t : values) if (t == o) return true;
 		return false;
 	}
-
+	
 	@Override
 	public Iterator<T> iterator() {
-		return new AetherIterator<T>(values);
+		return new AetherIterator<>(values);
 	}
-
+	
 	@Override
 	public T[] toArray() {
 		return values;
@@ -97,25 +91,25 @@ public class AetherList<T> implements List<T> {
 		for (int i = 0; i < values.length; i++) out[i] = values[i].toString();
 		return out;
 	}
-
+	
 	@Override
 	public Object[] toArray(Object[] a) {
-        if (a.length < values.length)
-            return (T[]) Arrays.copyOf(values, values.length, a.getClass());
-        System.arraycopy(values, 0, a, 0, values.length);
-        if (a.length > values.length)
-            a[values.length] = null;
-        return a;
+		if (a.length < values.length)
+			return Arrays.copyOf(values, values.length, a.getClass());
+		System.arraycopy(values, 0, a, 0, values.length);
+		if (a.length > values.length)
+			a[values.length] = null;
+		return a;
 	}
-
+	
 	@Override
 	public boolean add(T e) {
 		values = Arrays.copyOf(values, values.length + 1);
-		values[values.length - 1] = (T) e;
+		values[values.length - 1] = e;
 		clazz = (Class<T>) values.getClass().getComponentType();
 		return true;
 	}
-
+	
 	@Override
 	public boolean remove(Object o) {
 		if (o.getClass() != clazz) return false;
@@ -129,7 +123,7 @@ public class AetherList<T> implements List<T> {
 		
 		return false;
 	}
-
+	
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		boolean ok = true;
@@ -137,14 +131,14 @@ public class AetherList<T> implements List<T> {
 		return ok;
 	}
 	
-	@SuppressWarnings("rawtypes") 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean addAll(Collection c) {
 		boolean ok = true;
 		for (Object o : c) if (! add((T) o)) ok = false;
 		return ok;
 	}
-
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean addAll(int index, Collection c) {
@@ -159,14 +153,14 @@ public class AetherList<T> implements List<T> {
 		
 		return ok;
 	}
-
+	
 	@Override
 	public boolean removeAll(Collection<?> c) {
 		boolean ok = true;
-		for (Object o : c) if (! remove(o)) ok = false; 
+		for (Object o : c) if (! remove(o)) ok = false;
 		return ok;
 	}
-
+	
 	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean ok = true;
@@ -181,18 +175,18 @@ public class AetherList<T> implements List<T> {
 		
 		return ok;
 	}
-
+	
 	@Override
 	public void clear() {
 		values = (T[]) new Object[0];
 	}
-
+	
 	@Override
 	public T get(int index) {
 		if (index > values.length - 1) throw new ArrayIndexOutOfBoundsException();
 		return values[index];
 	}
-
+	
 	@Override
 	public T set(int index, Object element) {
 		if (element.getClass() != clazz) return null;
@@ -202,10 +196,10 @@ public class AetherList<T> implements List<T> {
 			return out;
 		} else {
 			add((T) element);
-			return null;	
+			return null;
 		}
 	}
-
+	
 	@Override
 	public void add(int index, Object element) {
 		if (element.getClass() != clazz) return;
@@ -216,7 +210,7 @@ public class AetherList<T> implements List<T> {
 		for (int i = index + 1; i < newValues.length; i++) newValues[i] = values[i - 1];	// add everything after the index (values[i - 1) because the new element shifts everything one back.
 		values = newValues;																	// set the values to the new values
 	}
-
+	
 	@Override
 	public T remove(int index) {
 		if (index >= values.length) return null;											// make sure the index is in bounds
@@ -230,14 +224,14 @@ public class AetherList<T> implements List<T> {
 		
 		return out;
 	}
-
+	
 	@Override
 	public int indexOf(Object o) {
 		if (o == null || o.getClass() != clazz) return -1;
 		for (int i = 0; i < values.length; i++) if (values[i] == o) return i;
 		return -1;
 	}
-
+	
 	@Override
 	public int lastIndexOf(Object o) {
 		if (o == null || o.getClass() != clazz) return -1;
@@ -246,19 +240,19 @@ public class AetherList<T> implements List<T> {
 		
 		return -1;
 	}
-
+	
 	@Override
 	public ListIterator<T> listIterator() {
 		// TODO: ListIterator
 		return null;
 	}
-
+	
 	@Override
 	public ListIterator<T> listIterator(int index) {
 		// TODO: ListIterator starting at <index>
 		return null;
 	}
-
+	
 	@Override
 	public List<T> subList(int fromIndex, int toIndex) {
 		if (fromIndex < 0 || toIndex >= values.length) return null;
@@ -266,7 +260,7 @@ public class AetherList<T> implements List<T> {
 		for (int i = fromIndex; i < toIndex; i++) subList.add(values[i]);
 		return subList;
 	}
-
+	
 	@Override
 	public String toString() {
 		String out = "[";
@@ -324,10 +318,10 @@ public class AetherList<T> implements List<T> {
 	
 	public static AetherList<Integer> createFromIntArray(int[] values) {
 		Integer[] temp = new Integer[values.length];
-		for (int i = 0; i < values.length; i++) temp[i] = Integer.valueOf(values[i]);
+		for (int i = 0; i < values.length; i++) temp[i] = values[i];
 		return new AetherList<>(temp);
 	}
-
+	
 	/**
 	 * Adds a \n after every entry
 	 * @return
@@ -340,6 +334,7 @@ public class AetherList<T> implements List<T> {
 		}
 		return out;
 	}
-
+	
+	public Class<T> getType() { return clazz; }
 	
 }

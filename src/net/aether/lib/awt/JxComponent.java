@@ -1,7 +1,5 @@
 package net.aether.lib.awt;
 
-import java.awt.Dimension;
-
 /**
  * Identifies JxComponents
  * 
@@ -9,9 +7,5 @@ import java.awt.Dimension;
  *
  */
 public interface JxComponent {
-	
-	public Dimension getMinimumSize();
-	public Dimension getPreferredSize();
-	public Dimension getSize();
 	
 }

@@ -2,6 +2,8 @@ package net.aether.lib.awt;
 
 import javax.swing.JFrame;
 
+import net.aether.lib.data.Promise;
+
 /**
  * 
  * 
@@ -15,7 +17,8 @@ public class JxFrame {
 		frame = new JFrame(title);
 	}
 	
-	public static void main(String[] args) {
-	}
+	public Promise<JxReturn.Confirm> showConfirmDialog() { return null; }
+	public Promise<JxReturn.YesOrNo> showYesOrNoDialog() { return null; }
+	
 	
 }
