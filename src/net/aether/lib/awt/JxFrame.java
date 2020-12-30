@@ -19,6 +19,6 @@ public class JxFrame {
 	
 	public Promise<JxReturn.Confirm> showConfirmDialog() { return null; }
 	public Promise<JxReturn.YesOrNo> showYesOrNoDialog() { return null; }
-	
+	public Promise<JxReturn> showDialog(String title, JxComponent content, JxReturn... options) { return null; }
 	
 }

@@ -1,5 +1,7 @@
 import javax.swing.UIManager;
 
+import net.aether.lib.awt.JxStyle;
+
 public class Test {
 	
 	public static void main(String[] args) {
@@ -9,14 +11,11 @@ public class Test {
 	
 	@SuppressWarnings("all")
 	public static void main2(String[] args) {
-		System.out
-		.format("%-16.3f|%-16.3f|%-16.3f\n", 69.5, 0f, 0f)
-		.format("%-16s|%-16s|%-16s\n", "Hallo", "Welt", "XD")
-		.format("%-16s|%-16s|%-16s\n", "69", "420", "rofl");
+		JxStyle style = new JxStyle();
 		
-	}
-	
-	public static <T> void test(T... args) {
+		System.out.println(style.colors.background);
+		System.out.println(style.margin.top);
+		System.out.println(style.padding.top);
 	}
 	
 }
