@@ -28,7 +28,7 @@ jobs:
       run: mvn -B package -Dversion.suffix="" --file pom.xml
 
     - name: Publish to Cheos' Maven Repository
-      run: mvn deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
+      run: mvn deploy -s $GITHUB_WORKSPACE/.github/workflows/settings.xml -Dversion.suffix=""
       env:
         MAVEN_USERNAME: ${{ secrets.CHEOS_MAVEN_DEPLOY_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CHEOS_MAVEN_DEPLOY_PASSWORD }}
