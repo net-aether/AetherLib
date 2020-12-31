@@ -5,7 +5,7 @@
 	
 	<groupId>net.aether</groupId>
 	<artifactId>lib</artifactId>
-	<version>0.0.1-2-SNAPSHOT</version>
+	<version>0.0.1${version.suffix}</version>
 	<name>AetherLib</name>
 	<description>The AetherLib adds some common classes that are useful in many ways</description>
 
