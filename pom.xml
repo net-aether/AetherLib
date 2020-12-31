@@ -9,8 +9,11 @@
 	<name>AetherLib</name>
 	<description>The AetherLib adds some common classes that are useful in many ways</description>
 	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<build>
-		<sourceEncoding>UTF-8</sourceEncoding>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
