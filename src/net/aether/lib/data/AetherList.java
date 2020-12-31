@@ -337,4 +337,8 @@ public class AetherList<T> implements List<T> {
 	
 	public Class<T> getType() { return clazz; }
 	
+	public void addAll(T... values) {
+		for (T t : values) add(t);
+	}
+	
 }
