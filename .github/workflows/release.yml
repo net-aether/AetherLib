@@ -4,8 +4,11 @@
 name: Build
 
 on:
-  release:
-    types: [released]
+  push:
+    branches:
+      - release
+    paths:
+      - 'src/**'
   workflow_dispatch:
 
 jobs:
