@@ -11,8 +11,7 @@
 [release-shield]: https://img.shields.io/github/v/release/net-aether/AetherLib?label=Release&logo=github
 [prerelease-shield]: https://img.shields.io/github/v/release/net-aether/AetherLib?include_prereleases&label=Pre-Release&logo=github
 
-Note: Do **NOT** commit to this branch!
-This branch should not be used anymore, use branch **dev** instead!
+Note: Do **NOT** commit to any other branch than **dev**!
 
 # AetherLib
 
