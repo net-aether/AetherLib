@@ -1,4 +1,4 @@
-package net.aether.lib.data;
+package net.aether.lib.concurrent;
 
 import net.aether.lib.lambda.Consumer;
 import net.aether.lib.lambda.Provider;
@@ -11,6 +11,8 @@ import net.aether.lib.lambda.Provider;
  */
 public final class Promise<T> implements Provider<T> {
 	
+	private static int counter = 0;
+	
 	private Consumer<T> 		consumer;
 	private Consumer<Throwable> onError;
 	
@@ -21,7 +23,7 @@ public final class Promise<T> implements Provider<T> {
 		thread = new Thread(() -> {
 			result = provider.get();
 			if (consumer!= null) consumer.call(result);
-		});
+		}, String.format("Promise#%08x", counter++));
 		thread.setUncaughtExceptionHandler((Thread thread, Throwable throwable) -> { if (onError != null) onError.call(throwable); });
 		thread.start();
 	}
@@ -68,22 +70,44 @@ public final class Promise<T> implements Provider<T> {
 		return this;
 	}
 	/**
-	 * Join with the underlying thread
+	 * Waits until the Promise has been fulfilled or was interrupted
 	 * @throws InterruptedException
 	 */
-	public synchronized Promise<T> join() throws InterruptedException {
-		return join(0);
+	public synchronized Promise<T> await() throws InterruptedException {
+		return await(0);
 	}
 	/**
-	 * Joins with the underlying thread
+	 * Waits until:<ul>
+	 * <li> The Promise has been fulfilled</li>
+	 * <li> The Promise was interrupted</li>
+	 * <li> The Promise was cancelled</li>
+	 * <li> The Timeout has been reached</li>
+	 * </ul>
 	 * @param millis
 	 * @throws InterruptedException
 	 */
-	public synchronized Promise<T> join(long millis) throws InterruptedException {
+	public synchronized Promise<T> await(long millis) throws InterruptedException {
 		thread.join(millis);
 		return this;
 	}
-	
-	
-	
+	/**
+	 * accelerates execution by skipping all wait times.<br>
+	 * This will likely result in Exceptions and null-values when e.g. the executing Thread is waiting for a result (e.g. from a Stream)
+	 */
+	public synchronized void accelerate() {
+		new Thread(() -> {
+			while (thread.isAlive()) {
+				try {
+					thread.join(500);
+					thread.interrupt();
+				} catch (InterruptedException e) {}
+			}
+		}, thread.getName() + "@accelerator").start();
+	}
+	/**
+	 * Stops the executing Thread.<br>
+	 * This action is not safe! {@link #get get} will always be null and {@link #then then} will not be called!
+	 */
+	@Deprecated
+	public synchronized void cancel() { thread.stop(); }
 }

@@ -2,6 +2,8 @@ package net.aether.lib.ui;
 
 import java.awt.*;
 
+import javax.swing.UIManager;
+
 public class GraphicUtils {
 
 	/**
@@ -22,4 +24,13 @@ public class GraphicUtils {
 
 	}
 	
+	/**
+	 * Simply tells the UIManager to use the system look and feel.<br>
+	 * Note: UIManager is static, and the LookAndFeel will apply to all JFrames
+	 */
+	public static void useSystemLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) { /* most exceptions should not occur on the system LAF */ }
+	}
 }

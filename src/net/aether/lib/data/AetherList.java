@@ -54,7 +54,7 @@ public class AetherList<T> implements List<T> {
 		Enumeration<K> enumeration = dict.keys();
 		while (enumeration.hasMoreElements()) {
 			K key = enumeration.nextElement();
-			values.add(new Pair<>(key, dict.get(key)));
+			values.add(Pair.of(key, dict.get(key)));
 		}
 		
 		return values;
@@ -340,5 +340,5 @@ public class AetherList<T> implements List<T> {
 	public void addAll(T... values) {
 		for (T t : values) add(t);
 	}
-	
+		
 }
