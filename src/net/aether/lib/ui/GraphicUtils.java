@@ -1,4 +1,4 @@
-package net.aether.lib.awt;
+package net.aether.lib.ui;
 
 import java.awt.*;
 
