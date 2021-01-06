@@ -11,6 +11,8 @@
 [release-shield]: https://img.shields.io/github/v/release/net-aether/AetherLib?label=Release&logo=github
 [prerelease-shield]: https://img.shields.io/github/v/release/net-aether/AetherLib?include_prereleases&label=Pre-Release&logo=github
 
+Note: Do **NOT** commit to this branch!
+
 # AetherLib
 
 [ ![build-shield][] ][build]
