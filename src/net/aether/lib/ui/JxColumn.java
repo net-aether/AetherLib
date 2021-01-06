@@ -15,27 +15,25 @@ import net.aether.lib.misc.StaticLoggerUtils;
  * Puts all child components horizontally next to eachother
  * @author Kilix
  */
-public class JxRow extends JComponent {
-	
-	public enum VerticalAlignment {
-		TOP,
-		MIDDLE,
-		BOTTOM;
-		
-		public static final VerticalAlignment CENTER = MIDDLE;
+public class JxColumn extends JComponent {
+	private static final long serialVersionUID = 4736489653350579449L;
+
+	public enum HorizontalAlignment {
+		LEFT,
+		CENTER,
+		RIGHT
 	}
 	
-	public JxRow() { this(VerticalAlignment.BOTTOM); }
-	
-	public JxRow(VerticalAlignment alignment) {
+	public JxColumn() { this(HorizontalAlignment.LEFT); }
+	public JxColumn(HorizontalAlignment alignment) {
 		this.alignment = alignment;
-		setLayout(new JxRowLayout());
+		setLayout(new JxColumnLayout());
 	}
 	
-	private VerticalAlignment alignment;
+	private HorizontalAlignment alignment = HorizontalAlignment.LEFT;
 	private List<JxSpacer> spacers = new ArrayList<>();
-		
-	public JxRow addAll(Component... components) {
+	
+	public JxColumn addAll(Component... components) {
 		for (Component c : components) {
 			if (c instanceof JxSpacer) spacers.add((JxSpacer) c);
 			super.add(c);
@@ -43,7 +41,7 @@ public class JxRow extends JComponent {
 		return this;
 	}
 	
-	public JxRow align(VerticalAlignment alignment) {
+	public JxColumn align(HorizontalAlignment alignment) {
 		this.alignment = alignment;
 		return this;
 	}
@@ -51,7 +49,7 @@ public class JxRow extends JComponent {
 	@Override
 	public boolean isPreferredSizeSet() { return true; }
 	
-	private class JxRowLayout implements LayoutManager {
+	private class JxColumnLayout implements LayoutManager {
 		public void addLayoutComponent(String name, Component comp) {}
 		public void removeLayoutComponent(Component comp) {}
 		public Dimension minimumLayoutSize(Container parent) { return preferredLayoutSize(parent); }
@@ -61,70 +59,63 @@ public class JxRow extends JComponent {
 			
 			for (Component c : parent.getComponents()) {
 				if (c instanceof JxSpacer) continue;
-				if (c.getPreferredSize().height > height) height = c.getPreferredSize().height;
-				width += c.getPreferredSize().width;
+				if (c.getPreferredSize().width > width) width = c.getPreferredSize().width;
+				height += c.getPreferredSize().height;
 			}
 			
 			return new Dimension(width, height);
 		}
 		public void layoutContainer(Container parent) {
-			final int parentWidth = parent.getWidth();
+			final int parentHeight = parent.getHeight();
 			Component[] components = parent.getComponents();
 			
-			Wrapper<Integer> maxHeight = Wrapper.wrap(0);
-			Wrapper<Integer> widthTotal = Wrapper.wrap(0);
+			Wrapper<Integer> maxWidth = Wrapper.wrap(0);
+			Wrapper<Integer> heightTotal = Wrapper.wrap(0);
 			
 			List<JxSpacer> spacers = Arrays
 					.stream(components)
-					// Determines the height for the row
-					// Determines the total width of the non Spacer components
-					.map(c -> {
-						System.out.println("old total: " + widthTotal);
-						maxHeight.set(c.getPreferredSize().height > maxHeight.get() ? c.getPreferredSize().height : maxHeight.get());
-						if (! (c instanceof JxSpacer)) widthTotal.set(widthTotal.get() + c.getPreferredSize().width);
-						System.out.println("new total: " + widthTotal);
-						return c;
+					.peek(c -> {
+						maxWidth.set(c.getPreferredSize().width > maxWidth.get() ? c.getPreferredSize().width : maxWidth.get());
+						if (! (c instanceof JxSpacer)) heightTotal.set(heightTotal.get() + c.getPreferredSize().height);
 					})
-					// Filters for JxSpacers
 					.filter(c -> c instanceof JxSpacer)
-					// Parses the stream
 					.map(c -> (JxSpacer) c)
-					// Collects the stream back to a map
 					.collect(Collectors.toList());
 
 			// This block determines the JxSpacer size
 			int space = 0;
-			if (widthTotal.get() < parentWidth) {
-				space = parentWidth - widthTotal.get();
+			if (heightTotal.get() < parentHeight) {
+				space = parentHeight - heightTotal.get();
 				if (spacers.size() != 0) space /= spacers.size();
 			}
 			
 			for (JxSpacer spacer : spacers) {
-				spacer.setWidth(space);
-				spacer.setHeight(maxHeight.get());
+				spacer.setWidth(maxWidth.get());
+				spacer.setHeight(space);
 			}
 			
-			
-			int widthSoFar = 0;
+			// actually layout the components
+			int heightSoFar = 0;
 			for (Component comp : components) {
 				int width = comp.getPreferredSize().width;
 				int height = comp.getPreferredSize().height;
 				
 				switch (alignment) {
-					case TOP:
-						comp.setBounds(widthSoFar, 0, width, height);
+					case LEFT:
+						comp.setBounds(0, heightSoFar, width, height);
 						break;
-					case BOTTOM:
-						comp.setBounds(widthSoFar, maxHeight.get() - height, width, height);
+					case CENTER:
+						comp.setBounds((maxWidth.get() - width) / 2, heightSoFar, width, height);
 						break;
-					case MIDDLE:
-						comp.setBounds(widthSoFar, (maxHeight.get() - height) / 2, width, height);
+					case RIGHT:
+						comp.setBounds(maxWidth.get() - width, heightSoFar, width, height);
 				}
 				
-				widthSoFar += width;
+				heightSoFar += height;
 			}
 		}
 	}
+
 	
 	@Override
 	public void repaint() {
@@ -135,5 +126,4 @@ public class JxRow extends JComponent {
 			c.repaint();
 		}
 	}
-	
 }
