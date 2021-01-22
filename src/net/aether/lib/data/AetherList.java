@@ -183,7 +183,7 @@ public class AetherList<T> implements List<T> {
 	
 	@Override
 	public T get(int index) {
-		if (index > values.length - 1) throw new ArrayIndexOutOfBoundsException();
+		if (index > values.length - 1 || index < 0) throw new ArrayIndexOutOfBoundsException();
 		return values[index];
 	}
 	

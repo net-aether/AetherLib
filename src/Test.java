@@ -1,52 +1,19 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.util.*;
 
-import net.aether.lib.ui.*;
+import net.aether.lib.misc.Formatter;
 
 public class Test {
 	
 	@SuppressWarnings("all")
 	public static void main(String[] args) {
-		GraphicUtils.useSystemLookAndFeel();
-		JFrame frame = new JFrame("TestFrame");
 		
-		/*frame.add(
-				new JxRow()
-					.addAll(
-						new JxColumn(HorizontalAlignment.CENTER)
-							.addAll(
-								new JxSpacer(),
-								new JxRow(VerticalAlignment.CENTER)
-									.addAll(
-										new JButton("Hallo"),
-										new JButton("Welt")
-									),
-								new JxSpacer(),
-								new JButton("BUTTON"),
-								new JxSpacer()
-							)
-				)
-		);*/
+		Map<String, String> map = new HashMap<>();
+		Random rnjesus = new Random();
 		
-		frame.add(
-				new JxColumn()
-					.addAll(
-						new JxSpacer(),
-						new JxRow()
-							.addAll(
-									new JxSpacer(),
-									new JButton("Hello"),
-									new JButton("World"),
-									new JxSpacer()
-							),
-						new JxSpacer()
-					)
-				);
+		for (int i = 0; i < 10; i++) map.put("" + rnjesus.nextInt(0xFF), "" + rnjesus.nextInt(0xFF));
 		
-		frame.setDefaultCloseOperation(3);
-		frame.setVisible(true);
+		for (String s : Formatter.generateTable(map, "Random Keys", "Random Values", false)) System.out.println(s);
 		
-		frame.pack();
 	}
 	
 	

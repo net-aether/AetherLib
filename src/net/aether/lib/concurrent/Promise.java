@@ -19,10 +19,13 @@ public final class Promise<T> implements Provider<T> {
 	private Thread 				thread;
 	private volatile T 			result;
 	
+	private boolean 			fulfilled;
+	
 	public Promise(Provider<? extends T> provider) {
 		thread = new Thread(() -> {
 			result = provider.get();
 			if (consumer!= null) consumer.call(result);
+			fulfilled = true;
 		}, String.format("Promise#%08x", counter++));
 		thread.setUncaughtExceptionHandler((Thread thread, Throwable throwable) -> { if (onError != null) onError.call(throwable); });
 		thread.start();
@@ -73,7 +76,7 @@ public final class Promise<T> implements Provider<T> {
 	 * Waits until the Promise has been fulfilled or was interrupted
 	 * @throws InterruptedException
 	 */
-	public synchronized Promise<T> await() throws InterruptedException {
+	public Promise<T> await() throws InterruptedException {
 		return await(0);
 	}
 	/**
@@ -86,7 +89,7 @@ public final class Promise<T> implements Provider<T> {
 	 * @param millis
 	 * @throws InterruptedException
 	 */
-	public synchronized Promise<T> await(long millis) throws InterruptedException {
+	public Promise<T> await(long millis) throws InterruptedException {
 		thread.join(millis);
 		return this;
 	}
@@ -110,4 +113,7 @@ public final class Promise<T> implements Provider<T> {
 	 */
 	@Deprecated
 	public synchronized void cancel() { thread.stop(); }
+	public boolean isFulfilled() {
+		return fulfilled;
+	}
 }
