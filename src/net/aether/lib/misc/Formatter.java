@@ -57,10 +57,10 @@ public class Formatter {
 		
 		if (leaveOpen) {
 			out[0] = String.format("%-" + keyLength.get() + "s | %-" + valueLength.get() + "s", keyName, valueName);
-			out[1] = "-".repeat(keyLength.get()) + ":|:" + "-".repeat(valueLength.get());
+			out[1] = StringUtils.repeat("-", keyLength.get()) + ":|:" + StringUtils.repeat("-", valueLength.get());
 		} else {
 			out[0] = String.format("| %-" + keyLength.get() + "s | %-" + valueLength.get() + "s |", keyName, valueName);
-			out[1] = "|:" + "-".repeat(keyLength.get()) + ":|:" + "-".repeat(valueLength.get()) + ":|";
+			out[1] = "|:" + StringUtils.repeat("-", keyLength.get()) + ":|:" + StringUtils.repeat("-", valueLength.get()) + ":|";
 		}
 		
 		for (int i = 0; i < out.length - 2; i++) {

@@ -16,7 +16,8 @@ import net.aether.lib.misc.StaticLoggerUtils;
  * @author Kilix
  */
 public class JxRow extends JComponent {
-	
+	private static final long serialVersionUID = 2289290403401405978L;
+
 	public enum VerticalAlignment {
 		TOP,
 		MIDDLE,
@@ -52,9 +53,13 @@ public class JxRow extends JComponent {
 	public boolean isPreferredSizeSet() { return true; }
 	
 	private class JxRowLayout implements LayoutManager {
+		@Override
 		public void addLayoutComponent(String name, Component comp) {}
+		@Override
 		public void removeLayoutComponent(Component comp) {}
+		@Override
 		public Dimension minimumLayoutSize(Container parent) { return preferredLayoutSize(parent); }
+		@Override
 		public Dimension preferredLayoutSize(Container parent) {
 			int width = 0;
 			int height = 0;
@@ -67,6 +72,7 @@ public class JxRow extends JComponent {
 			
 			return new Dimension(width, height);
 		}
+		@Override
 		public void layoutContainer(Container parent) {
 			final int parentWidth = parent.getWidth();
 			Component[] components = parent.getComponents();
