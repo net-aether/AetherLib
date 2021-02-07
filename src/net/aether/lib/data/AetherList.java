@@ -35,8 +35,8 @@ public class AetherList<T> implements List<T> {
 	 * @param map
 	 * @return
 	 */
-	public static <K, V> AetherList<Pair<K, V>> crushMap(Map<K, V> map) {
-		return new AetherList<>(Pair.convertMap(map));
+	public static <K, V> AetherList<Pair<? extends K, ? extends V>> crushMap(Map<? extends K, ? extends V> map) {
+		return new AetherList<>((Pair<K, V>) Pair.convertMap(map));
 	}
 	
 	/**
