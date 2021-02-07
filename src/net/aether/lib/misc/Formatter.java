@@ -3,7 +3,7 @@ package net.aether.lib.misc;
 import java.util.Map;
 
 import net.aether.lib.data.AetherList;
-import net.aether.lib.data.Wrapper;
+import net.aether.lib.data.Pair;
 
 public class Formatter {
 	
@@ -40,37 +40,34 @@ public class Formatter {
 		AetherList<String>
 			keyList   = new AetherList<>(),
 			valueList = new AetherList<>();
-		Wrapper<Integer>
-			keyLength 	= Wrapper.wrap(  keyName.length()),
-			valueLength = Wrapper.wrap(valueName.length());
 		
-		AetherList.crushMap(values).stream().forEach(pair -> {
+		int keyLength 	=   keyName.length(),
+			valueLength = valueName.length();
+		
+		for (Pair<?, ?> pair : AetherList.<Object, Object>crushMap(values)) {
 			String key   = pair.getKey()  .toString();
 			String value = pair.getValue().toString();
 						
-			if (  key.length() > keyLength  .get()) keyLength  .set(key  .length());
-			if (value.length() > valueLength.get()) valueLength.set(value.length());
+			if (  key.length() >   keyLength)   keyLength =   key.length();
+			if (value.length() > valueLength) valueLength = value.length();
 			
-			keyList.add("" + key);
+			  keyList.add("" + key  );
 			valueList.add("" + value);
-		});
+		}
 		
 		if (leaveOpen) {
-			out[0] = String.format("%-" + keyLength.get() + "s | %-" + valueLength.get() + "s", keyName, valueName);
-			out[1] = StringUtils.repeat("-", keyLength.get()) + ":|:" + StringUtils.repeat("-", valueLength.get());
+			out[0] = String     .format("%-" + keyLength + "s | %-" + valueLength + "s", keyName, valueName);
+			out[1] = StringUtils.repeat( "-" , keyLength) + ":|:"   + StringUtils.repeat("-", valueLength);
 		} else {
-			out[0] = String.format("| %-" + keyLength.get() + "s | %-" + valueLength.get() + "s |", keyName, valueName);
-			out[1] = "|:" + StringUtils.repeat("-", keyLength.get()) + ":|:" + StringUtils.repeat("-", valueLength.get()) + ":|";
+			out[0] =        String     .format("| %-" + keyLength + "s | %-" + valueLength + "s |", keyName, valueName);
+			out[1] = "|:" + StringUtils.repeat("-"    , keyLength) + ":|:"   + StringUtils.repeat("-", valueLength) + ":|";
 		}
 		
-		for (int i = 0; i < out.length - 2; i++) {
+		for (int i = 0; i < out.length - 2; i++)
 			if (leaveOpen)
-				out[i + 2] = String.format("%-" + keyLength.get() + "s | %-" + valueLength.get() + "s", keyList.get(i), valueList.get(i));
+				out[i + 2] = String.format( "%-"  + keyLength + "s | %-" + valueLength + "s"  , keyList.get(i), valueList.get(i));
 			else
-				out[i + 2] = String.format("| %-" + keyLength.get() + "s | %-" + valueLength.get() + "s |", keyList.get(i), valueList.get(i));
-			
-		}
-		
+				out[i + 2] = String.format("| %-" + keyLength + "s | %-" + valueLength + "s |", keyList.get(i), valueList.get(i));
 		return out;
 	}
 	
