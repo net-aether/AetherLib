@@ -1,6 +1,7 @@
 package net.aether.lib.ui;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
 
 /**
  * All Spacers inside the same {@link JxRow Row} will have the same width.
@@ -16,11 +17,6 @@ public class JxSpacer extends Component {
 	
 	public int getWidth() 				 { return width; }
 	public int getHeight() 				 { return height; }
-
-	@Override
-	public void paint(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect(0, 0, width, height);
-	}
+	public Dimension getPreferredSize()  { return new Dimension(width, height); }
 	
 }

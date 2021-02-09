@@ -1,11 +1,13 @@
 package net.aether.lib.data;
 
+import net.aether.lib.lambda.Provider;
+
 /**
  * Class for wrapping any object.
  * 
  * @author Cheos
  */
-public class Wrapper<T> {
+public class Wrapper<T> implements Provider<T> {
 	private T wrapped;
 	private final boolean fin;
 	
@@ -51,5 +53,9 @@ public class Wrapper<T> {
 	 */
 	public T get() {
 		return wrapped;
+	}
+
+	public String toString() {
+		return get().toString();
 	}
 }

@@ -35,8 +35,8 @@ public class AetherList<T> implements List<T> {
 	 * @param map
 	 * @return
 	 */
-	public static <K, V> AetherList<Pair<K, V>> crushMap(Map<K, V> map) {
-		return new AetherList<>(Pair.convertMap(map));
+	public static <K, V> AetherList<Pair<K, V>> crushMap(Map<? extends K, ? extends V> map) {
+		return new AetherList<>((List<Pair<K, V>>) (List<?>) Pair.convertMap(map)); // do some cast magic so that the compiler doesn't comply
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class AetherList<T> implements List<T> {
 	
 	@Override
 	public T get(int index) {
-		if (index > values.length - 1) throw new ArrayIndexOutOfBoundsException();
+		if (index > values.length - 1 || index < 0) throw new ArrayIndexOutOfBoundsException();
 		return values[index];
 	}
 	
