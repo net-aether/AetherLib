@@ -44,7 +44,7 @@ public class Formatter {
 		int keyLength 	=   keyName.length(),
 			valueLength = valueName.length();
 		
-		for (Pair<?, ?> pair : AetherList.<Object, Object>crushMap(values)) {
+		for (Pair<?, ?> pair : AetherList.crushMap(values)) {
 			String key   = pair.getKey()  .toString();
 			String value = pair.getValue().toString();
 						

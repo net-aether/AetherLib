@@ -12,6 +12,7 @@ public class Test {
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
 		
 		DebugTimer dt = new DebugTimer(1);
+		DebugTimer dt2 = new DebugTimer(1);
 		
 		Map<String, String> map = new HashMap<>();
 		Random rnjesus = new Random();
@@ -27,14 +28,13 @@ public class Test {
 		String[] test2 = { "aaa", null, "bbb", "ccc" };
 
 		dt.start();
+		dt2.start();
+		dt.intermediate();
+		dt2.end();
+		dt.end();
 		
 		String[] test = ArrayUtils.mergeStrings(true, '_', test0, test1, test2);
-
-		dt.intermediate();
-		
 		ArrayUtils.printArray(test);
-		
-		dt.end();
 		
 		System.out.println();
 		for (String s : test)
@@ -42,11 +42,12 @@ public class Test {
 		System.out.println();
 		
 		System.out.println();
-		System.out.printf("Took %.3fms\n", dt.getMicroDiff() / 1000D);
-		System.out.printf("First segment took %.3fms\n", dt.getMicroDiff(0) / 1000D);
-		System.out.printf("Second segment took %.3fms\n", dt.getMicroDiff(0, true) / 1000D);
-		System.out.println(df.format(new Date(dt.getStartMillis())));
-		System.out.println(df.format(new Date(dt.getIntermediateMillis(0))));
-		System.out.println(df.format(new Date(dt.getEndMillis())));
+//		System.out.printf("Took %.3fms\n", dt.getMicroDiff() / 1000D);
+		System.out.printf("Start segment took %.3fms\n", dt.getMicroDiff(0) / 1000D);
+		System.out.printf("Inter segment took %.3fms\n", dt.getMicroDiff()  / 1000D);
+		System.out.printf("End   segment took %.3fms\n", dt.getMicroDiff(0, true) / 1000D);
+//		System.out.println(df.format(new Date(dt.getStartMillis())));
+//		System.out.println(df.format(new Date(dt.getIntermediateMillis(0))));
+//		System.out.println(df.format(new Date(dt.getEndMillis())));
 	}
 }

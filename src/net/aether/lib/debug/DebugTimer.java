@@ -6,13 +6,13 @@ package net.aether.lib.debug;
  * @author Cheos
  */
 public class DebugTimer {
-	private boolean start = false,
-			        end   = false;
-	private long startMillis,
-	             startNanos,
-	             endNanos;
-	private long[] inter;
-	private int  rnd;
+	protected boolean start = false,
+			          end   = false;
+	protected long startMillis,
+	               startNanos,
+	               endNanos;
+	protected long[] inter;
+	protected int  rnd;
 	
 	/**
 	 * Initializes a new {@link DebugTimer} which can be very handy to improve performance.<br>
