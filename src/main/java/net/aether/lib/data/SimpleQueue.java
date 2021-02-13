@@ -36,13 +36,14 @@ public class SimpleQueue<T> implements Queue<T> {
 		if(idx >= queue.size() || idx < 0) return false;
 		
 		Wrapper<Boolean> success = Wrapper.wrap(true);
-		List<QueueElement<T>> before = queue.subList(0, idx);
-		List<QueueElement<T>> after = queue.subList(idx, queue.size());
+		List<QueueElement<T>> before = new ArrayList<>(queue.subList(0, idx));
+		List<QueueElement<T>> after = new ArrayList<>(queue.subList(idx, queue.size()));
+		
 		success.set(success.get() && before.add(new QueueElement<>(idx, t)));
 		after.forEach(qe -> success.set(success.get() && qe.pushUp()));
 		success.set(success.get() && before.addAll(after));
 		
-		if (success.get()) {
+		if (success.get()) { // TODO: make more efficient... for loop, remove from end and add after -> before sublist is unnecessary then
 			queue.clear();
 			queue.addAll(before);
 			queue.sort((qe1, qe2) -> qe1.pos - qe2.pos);

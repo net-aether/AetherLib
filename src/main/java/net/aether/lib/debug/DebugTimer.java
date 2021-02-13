@@ -75,11 +75,32 @@ public class DebugTimer {
 	}
 	
 	/**
+	 * @return The time difference between two recorded timestamps, <b>intermediate0</b> and <b>intermediate1</b> in microseconds.
+	 */
+	public double getMicroDiffD(int intermediate0, int intermediate1) {
+		if (intermediate0 == intermediate1) return 0;
+		if (intermediate0 >  intermediate1) {
+			int temp      =  intermediate0;
+			intermediate0 =  intermediate1;
+			intermediate1 =  temp;
+		}
+		return rnd <= intermediate1 ? 0 : microDiffD(inter[intermediate0], inter[intermediate1]);
+	}
+	
+	/**
 	 * Equal to calling {@link #getMicroDiff(int, boolean) getMicroDiff(intermediate, false)}.
 	 * @see #getMicroDiff(int, boolean)
 	 */
 	public long getMicroDiff(int intermediate) {
 		return getMicroDiff(intermediate, false);
+	}
+	
+	/**
+	 * Equal to calling {@link #getMicroDiff(int, boolean) getMicroDiff(intermediate, false)}.
+	 * @see #getMicroDiff(int, boolean)
+	 */
+	public double getMicroDiffD(int intermediate) {
+		return getMicroDiffD(intermediate, false);
 	}
 	
 	/**
@@ -94,14 +115,36 @@ public class DebugTimer {
 	}
 	
 	/**
+	 * @return The time difference between the start of recording and a recorded intermediate timestamp or, if diffToEnd is true, the time difference between a recorded timestamp and the end of recording in microseconds.
+	 */
+	public double getMicroDiffD(int intermediate, boolean diffToEnd) {
+		return rnd <= intermediate || (diffToEnd && !end)
+				? 0
+				: diffToEnd
+					? microDiffD(inter[intermediate], endNanos)
+					: microDiffD(startNanos, inter[intermediate]);
+	}
+	
+	/**
 	 * @return The time difference between the start and the end of recording in microseconds.
 	 */
 	public long getMicroDiff() {
 		return end ? microDiff(startNanos, endNanos) : 0;
 	}
 	
+	/**
+	 * @return The time difference between the start and the end of recording in microseconds.
+	 */
+	public double getMicroDiffD() {
+		return end ? microDiffD(startNanos, endNanos) : 0;
+	}
+	
 	private long microDiff(long start, long end) {
 		return (long) Math.floor((end - start) / 1000D);
+	}
+	
+	private double microDiffD(long start, long end) {
+		return (end - start) / 1000D;
 	}
 	
 	/**
