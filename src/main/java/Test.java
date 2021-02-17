@@ -4,11 +4,37 @@ import java.util.*;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
+import net.aether.lib.debug.PrimitiveTimer;
 
 public class Test {
 	
 	@SuppressWarnings("all")
 	public static void main(String[] args) {
+		kilixMain(args);
+	}
+	
+	public static void kilixMain(String[] args) {
+		
+		DebugTimer debug = new DebugTimer();
+		debug.start();
+		PrimitiveTimer timer = new PrimitiveTimer();
+		
+		debug.intermediate();
+		
+		try { Thread.sleep(1000); } catch (Exception e) {}
+		
+		debug.intermediate();
+		
+		System.out.println("Primitive Timer:" + timer.mark());
+		
+		debug.end();
+		
+		System.out.println(debug.getMicroDiff(0) + "us");
+		System.out.println(debug.getMicroDiff(0, 1) / 1000 + "ms");
+		System.out.println(debug.getMicroDiff(1, true) + "us");
+	}
+	
+	public static void cheosMain(String[] args) {
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
 		
 		DebugTimer dt = new DebugTimer(50);
