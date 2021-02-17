@@ -5,7 +5,7 @@
 <!-- insert latest release url here -->
 [release]: https://github.com/net-aether/AetherLib/releases
 <!-- insert latest prerelease url here -->
-[prerelease]: https://github.com/net-aether/AetherLib/releases
+[prerelease]: https://github.com/net-aether/AetherLib/releases/tag/0.1.1-12-SNAPSHOT
 [build-shield]: https://github.com/net-aether/AetherLib/workflows/Build/badge.svg
 [build-snapshot-shield]: https://github.com/net-aether/AetherLib/workflows/Build%20Snapshot/badge.svg
 [release-shield]: https://img.shields.io/github/v/release/net-aether/AetherLib?label=Release&logo=github
