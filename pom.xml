@@ -29,7 +29,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>deploy</phase>
+						<!-- phase>deploy</phase -->
 						<goals>
 							<goal>jar-no-fork</goal>
 						</goals>
@@ -54,7 +54,7 @@
 				<version>3.0.0-M1</version>
 				<executions>
 					<execution>
-						<id>default-deploy</id>
+						<id>deploy</id>
 						<phase>deploy</phase>
 						<goals>
 							<goal>deploy</goal>
