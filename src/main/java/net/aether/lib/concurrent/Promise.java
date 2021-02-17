@@ -33,12 +33,14 @@ public final class Promise<T> implements Provider<T> {
 	
 	/**
 	 * Awaits the result
+	 * @return the result
 	 */
+	@Override
 	public T get() { return get(0); };
 	/**
 	 * Awaits the result, or times out after the supplied milliseconds have passed, returning null;
-	 * @param millis
-	 * @return
+	 * @param the time in milliseconds
+	 * @return the result
 	 */
 	public T get(long millis) {
 		try {
@@ -49,7 +51,8 @@ public final class Promise<T> implements Provider<T> {
 	
 	/**
 	 * Registers a consumer to be served the value as soon as it is available
-	 * @param consumer
+	 * @param consumer a consumer of the final value
+	 * @return itself
 	 */
 	public synchronized Promise<T> then(Consumer<T> consumer) {
 		this.consumer = consumer;
@@ -57,7 +60,8 @@ public final class Promise<T> implements Provider<T> {
 	}
 	/**
 	 * Registers a consumer to be served exceptions that were encountered
-	 * @param e
+	 * @param onError an error handler
+	 * @return itself
 	 */
 	public synchronized Promise<T> error(Consumer<Throwable> onError) {
 		this.onError = onError;
@@ -65,16 +69,16 @@ public final class Promise<T> implements Provider<T> {
 	}
 	/**
 	 * Interrupts the underlying thread
-	 * @return
-	 * @throws InterruptedException
+	 * @return itself
 	 */
-	public synchronized Promise<T> interrupt() throws InterruptedException {
+	public synchronized Promise<T> interrupt() {
 		thread.interrupt();
 		return this;
 	}
 	/**
 	 * Waits until the Promise has been fulfilled or was interrupted
-	 * @throws InterruptedException
+	 * @return itself
+	 * @throws InterruptedException if any thread interrupts the current thread
 	 */
 	public Promise<T> await() throws InterruptedException {
 		return await(0);
@@ -86,8 +90,9 @@ public final class Promise<T> implements Provider<T> {
 	 * <li> The Promise was cancelled</li>
 	 * <li> The Timeout has been reached</li>
 	 * </ul>
-	 * @param millis
-	 * @throws InterruptedException
+	 * @param millis the time in milliseconds
+	 * @return itself
+	 * @throws InterruptedException if any thread interrupts the current thread
 	 */
 	public Promise<T> await(long millis) throws InterruptedException {
 		thread.join(millis);

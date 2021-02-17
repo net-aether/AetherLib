@@ -8,9 +8,6 @@ public class GraphicUtils {
 
 	/**
 	 * Draws the supplied String centered within the supplied rectangle, using the supplied Graphics
-	 * @param g
-	 * @param rect
-	 * @param string
 	 */
 	public static void drawCenteredString(Graphics g, Rectangle rect, String string) {
 	    // Get the FontMetrics
