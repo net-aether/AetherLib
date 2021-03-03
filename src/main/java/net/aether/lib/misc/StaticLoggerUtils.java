@@ -1,5 +1,10 @@
 package net.aether.lib.misc;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
+
+@Since(V0_0_1)
 public class StaticLoggerUtils {
 
 	public static void sysout(Object message) {

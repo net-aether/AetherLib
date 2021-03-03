@@ -1,11 +1,16 @@
 package net.aether.lib.misc;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
+
 /**
  * Provides various utility functions regarding strings
  * 
- * @author Cheos, Kilix
- *
+ * @author Cheos
+ * @author Kilix
  */
+@Since(V0_0_1)
 public class StringUtils {
 	/**
 	 * Repeats a specified string by a specified amount

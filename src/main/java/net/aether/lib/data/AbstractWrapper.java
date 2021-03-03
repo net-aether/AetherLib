@@ -1,6 +1,12 @@
 package net.aether.lib.data;
 
-import java.lang.reflect.*;
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import net.aether.lib.annotation.Since;
+import net.aether.lib.annotation.WIP;
 
 /**
  * Wraps an Object, and allows save access to it's methods.<br>
@@ -8,6 +14,7 @@ import java.lang.reflect.*;
  * @author Kilix
  *
  */
+@Since(V0_0_1)
 public class AbstractWrapper<T> {
 
 	private final T value;
@@ -30,8 +37,8 @@ public class AbstractWrapper<T> {
 		value = null;
 	}
 	
-	public Object call(Method method, Object... arguments) {		
+	@WIP
+	public Object call(Method method, Object... arguments) {
 		return Void.INSTANCE;
 	}
-	
 }

@@ -1,10 +1,14 @@
 package net.aether.lib.misc;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.Map;
 
+import net.aether.lib.annotation.Since;
 import net.aether.lib.data.AetherList;
 import net.aether.lib.data.Pair;
 
+@Since(V0_0_1)
 public class Formatter {
 	
 	public static String[] generateTable(Map<?, ?> values, String keyName, String valueName) {

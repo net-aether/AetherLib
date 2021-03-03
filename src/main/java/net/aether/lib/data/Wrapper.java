@@ -1,5 +1,8 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
 import net.aether.lib.lambda.Provider;
 
 /**
@@ -7,6 +10,7 @@ import net.aether.lib.lambda.Provider;
  * 
  * @author Cheos
  */
+@Since(V0_0_1)
 public class Wrapper<T> implements Provider<T> {
 	private T wrapped;
 	private final boolean fin;
@@ -51,10 +55,12 @@ public class Wrapper<T> implements Provider<T> {
 	/**
 	 * @return The element wrapped by this {@link Wrapper}
 	 */
+	@Override
 	public T get() {
 		return wrapped;
 	}
 
+	@Override
 	public String toString() {
 		return get().toString();
 	}

@@ -1,5 +1,7 @@
 package net.aether.lib.ui;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.swing.JComponent;
 
+import net.aether.lib.annotation.Since;
 import net.aether.lib.data.Wrapper;
 import net.aether.lib.misc.StaticLoggerUtils;
 
@@ -15,6 +18,7 @@ import net.aether.lib.misc.StaticLoggerUtils;
  * Puts all child components horizontally next to eachother
  * @author Kilix
  */
+@Since(V0_0_1)
 public class JxColumn extends JComponent {
 	private static final long serialVersionUID = 4736489653350579449L;
 
@@ -50,9 +54,13 @@ public class JxColumn extends JComponent {
 	public boolean isPreferredSizeSet() { return true; }
 	
 	private class JxColumnLayout implements LayoutManager {
+		@Override
 		public void addLayoutComponent(String name, Component comp) {}
+		@Override
 		public void removeLayoutComponent(Component comp) {}
+		@Override
 		public Dimension minimumLayoutSize(Container parent) { return preferredLayoutSize(parent); }
+		@Override
 		public Dimension preferredLayoutSize(Container parent) {
 			int width = 0;
 			int height = 0;
@@ -65,6 +73,7 @@ public class JxColumn extends JComponent {
 			
 			return new Dimension(width, height);
 		}
+		@Override
 		public void layoutContainer(Container parent) {
 			final int parentHeight = parent.getHeight();
 			Component[] components = parent.getComponents();

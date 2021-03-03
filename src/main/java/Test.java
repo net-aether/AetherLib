@@ -14,7 +14,6 @@ public class Test {
 	}
 	
 	public static void kilixMain(String[] args) {
-		
 		DebugTimer debug = new DebugTimer();
 		debug.start();
 		PrimitiveTimer timer = new PrimitiveTimer();

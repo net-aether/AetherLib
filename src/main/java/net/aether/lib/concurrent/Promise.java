@@ -1,25 +1,31 @@
 package net.aether.lib.concurrent;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
 import net.aether.lib.lambda.Consumer;
 import net.aether.lib.lambda.Provider;
 
 /**
  * 
- * @author Cheos, Kilix
+ * @author Cheos
+ * @author Kilix
  *
  * @param <T>
  */
-public final class Promise<T> implements Provider<T> {
+@Since(V0_0_1)
+public class Promise<T> implements Provider<T> {
+	protected static int counter = 0;
 	
-	private static int counter = 0;
+	protected Consumer<T>         consumer;
+	protected Consumer<Throwable> onError;
 	
-	private Consumer<T> 		consumer;
-	private Consumer<Throwable> onError;
+	protected Thread              thread;
+	protected volatile T          result;
 	
-	private Thread 				thread;
-	private volatile T 			result;
+	protected boolean             fulfilled, interrupting;
 	
-	private boolean 			fulfilled;
+	protected Promise() { }
 	
 	public Promise(Provider<? extends T> provider) {
 		thread = new Thread(() -> {
@@ -36,7 +42,8 @@ public final class Promise<T> implements Provider<T> {
 	 * @return the result
 	 */
 	@Override
-	public T get() { return get(0); };
+	public T get() { return get(0L); };
+	
 	/**
 	 * Awaits the result, or times out after the supplied milliseconds have passed, returning null;
 	 * @param the time in milliseconds
@@ -58,6 +65,7 @@ public final class Promise<T> implements Provider<T> {
 		this.consumer = consumer;
 		return this;
 	}
+	
 	/**
 	 * Registers a consumer to be served exceptions that were encountered
 	 * @param onError an error handler
@@ -67,22 +75,26 @@ public final class Promise<T> implements Provider<T> {
 		this.onError = onError;
 		return this;
 	}
+	
 	/**
 	 * Interrupts the underlying thread
 	 * @return itself
 	 */
 	public synchronized Promise<T> interrupt() {
+		if (interrupting) return this;
 		thread.interrupt();
 		return this;
 	}
+	
 	/**
 	 * Waits until the Promise has been fulfilled or was interrupted
 	 * @return itself
 	 * @throws InterruptedException if any thread interrupts the current thread
 	 */
 	public Promise<T> await() throws InterruptedException {
-		return await(0);
+		return await(0L);
 	}
+	
 	/**
 	 * Waits until:<ul>
 	 * <li> The Promise has been fulfilled</li>
@@ -98,27 +110,69 @@ public final class Promise<T> implements Provider<T> {
 		thread.join(millis);
 		return this;
 	}
+	
 	/**
-	 * accelerates execution by skipping all wait times.<br>
+	 * Interrupts this {@link Promise Promises} thread until it is no longer alive.<br>
 	 * This will likely result in Exceptions and null-values when e.g. the executing Thread is waiting for a result (e.g. from a Stream)
 	 */
-	public synchronized void accelerate() {
+	public void interruptUntilEnd() {
+		if (interrupting) return;
+		interrupting = true;
+		
 		new Thread(() -> {
 			while (thread.isAlive()) {
 				try {
-					thread.join(500);
+					thread.join(500L);
 					thread.interrupt();
 				} catch (InterruptedException e) {}
 			}
-		}, thread.getName() + "@accelerator").start();
+		}, thread.getName() + "@ISlowlyAwaitMyParentThreadsDeath").start();
 	}
+	
 	/**
 	 * Stops the executing Thread.<br>
-	 * This action is not safe! {@link #get get} will always be null and {@link #then then} will not be called!
+	 * This action is inherently unsafe! {@link #get get} will always be null and {@link #then then} will not be called!
+	 * @see {@link Thread#stop()}
 	 */
 	@Deprecated
-	public synchronized void cancel() { thread.stop(); }
-	public boolean isFulfilled() {
-		return fulfilled;
+	public void cancel() { thread.stop(); }
+	
+	/**
+	 * @return whether or not this promise has been fulfilled
+	 */
+	public boolean isFulfilled() { return fulfilled; }
+	
+	
+	
+	/**
+	 * This class represents a faked promise which does not utilize additional threads
+	 * 
+	 * @author Cheos
+	 */
+	@Since(V0_0_1)
+	public static class Fake<T> extends Promise<T> {
+
+		public Fake(Provider<? extends T> provider) {
+			super();
+			result = provider.get();
+			if (consumer!= null) consumer.call(result);
+			fulfilled = true;
+			interrupting = true;
+		}
+		
+		@Override
+		public T get(long millis) { return result; }
+		
+		@Override
+		public synchronized Promise<T> then(Consumer<T> consumer) {
+			consumer.call(result);
+			return this;
+		}
+		
+		@Override
+		public Promise<T> await(long millis) throws InterruptedException { return this; }
+		
+		@Override
+		public synchronized void cancel() { }
 	}
 }

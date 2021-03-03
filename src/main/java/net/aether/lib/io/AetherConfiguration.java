@@ -1,12 +1,18 @@
 package net.aether.lib.io;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+import net.aether.lib.annotation.Since;
+import net.aether.lib.annotation.WIP;
 import net.aether.lib.exceptions.InvalidTypeException;
 
 //TODO
+@Since(V0_0_1)
+@WIP
 public class AetherConfiguration implements FileConfiguration {
 
 	/**

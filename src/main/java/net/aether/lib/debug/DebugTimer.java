@@ -1,10 +1,16 @@
 package net.aether.lib.debug;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
+
 /**
  * A misc class to help with optimizing code segments.
  * 
+ * @see {@link PrimitiveTimer} for a simple to use, general purpose timer
  * @author Cheos
  */
+@Since(V0_0_1)
 public class DebugTimer {
 	protected boolean start = false,
 			          end   = false;

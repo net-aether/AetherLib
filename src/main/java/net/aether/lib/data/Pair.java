@@ -1,6 +1,10 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.*;
+
+import net.aether.lib.annotation.Since;
 
 /**
  * 
@@ -9,6 +13,7 @@ import java.util.*;
  * @param <K>
  * @param <V>
  */
+@Since(V0_0_1)
 public class Pair<K, V> {
 	
 	public static <K, V> Pair<K, V> of(K key, V value) { return new Pair<>(key, value); }
