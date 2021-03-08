@@ -1,10 +1,15 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.debug.PrimitiveTimer;
+import net.aether.lib.misc.SimpleTimer;
 
 public class Test {
 	
@@ -12,25 +17,37 @@ public class Test {
 	public static void main(String[] args) {
 		kilixMain(args);
 	}
-	
+		
 	public static void kilixMain(String[] args) {
-		DebugTimer debug = new DebugTimer();
-		debug.start();
-		PrimitiveTimer timer = new PrimitiveTimer();
+		SimpleTimer timer = new SimpleTimer();
 		
-		debug.intermediate();
+		JFrame frame = new JFrame();
 		
-		try { Thread.sleep(1000); } catch (Exception e) {}
+		frame.setContentPane(new JPanel() {
+			public void paint(Graphics graphics) {
+				
+				float r = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 0) + 1) / 2f;
+				float g = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 1) + 1) / 2f;
+				float b = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 2) + 1) / 2f;
+				
+				frame.setTitle(String.format("r:%.2f g:%.2f b:%.2f", r, g, b));
+				
+				graphics.setColor(new Color(r, g, b));
+				graphics.fillRect(0, 0, getWidth(), getHeight());
+			}
+		});
 		
-		debug.intermediate();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(3);
+		frame.setSize(1280, 720);
+				
+		new Thread(() -> {
+			while (true) {
+				frame.repaint();
+				try { Thread.sleep(10); } catch (Exception e) {}
+			}
+		}).start();
 		
-		System.out.println("Primitive Timer:" + timer.mark());
-		
-		debug.end();
-		
-		System.out.println(debug.getMicroDiff(0) + "us");
-		System.out.println(debug.getMicroDiff(0, 1) / 1000 + "ms");
-		System.out.println(debug.getMicroDiff(1, true) + "us");
 	}
 	
 	public static void cheosMain(String[] args) {
