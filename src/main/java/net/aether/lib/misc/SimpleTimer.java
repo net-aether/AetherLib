@@ -1,24 +1,23 @@
 package net.aether.lib.misc;
 
-import java.util.Date;
-
 /**
  * Offers a simple timer
  * @author Kilix
+ * @author Cheos (improvements)
  *
  * @see #mark
  * @see #peek
  */
 public class SimpleTimer {
 		
-	private long start = new Date().getTime();
+	private long start = System.currentTimeMillis();
 	
 	/**
 	 * Resets the timer and
 	 * @return the millisecond difference between the start (or last mark) and the time at the method call.
 	 */
 	public long mark() {
-		long now = new Date().getTime();
+		long now = System.currentTimeMillis();
 		long diff = now - start;
 		start = now;
 		
@@ -29,7 +28,7 @@ public class SimpleTimer {
 	 * @return the millisecond difference between the start (or last mark) and the time at the method call.
 	 */
 	public long peek() {
-		return new Date().getTime() - start;
+		return System.currentTimeMillis() - start;
 	}
 	
 }
