@@ -2,15 +2,18 @@ package net.aether.lib.data;
 
 import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
 
+import java.io.Serializable;
+
 import net.aether.lib.annotation.Since;
 
 /**
  * Used to avoid {@link NullPointerException NullPointerExceptions}
  * @author Kilix
- *
+ * @author Cheos (fixes)
  */
 @Since(V0_0_1)
-public final class Void {
+public final class Void implements Cloneable, Serializable {
+	private static final long serialVersionUID = -4373520499076578529L;
 	
 	/**
 	 * This is the OG
@@ -28,7 +31,7 @@ public final class Void {
 	 * @return {@link #INSTANCE itself}
 	 */
 	@Override
-	protected Object clone() throws CloneNotSupportedException { return this; }
+	public Object clone() { return this; }
 	/**
 	 * @return true if obj is of type {@link Void}
 	 */
