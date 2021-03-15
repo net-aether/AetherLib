@@ -25,7 +25,7 @@ misc. Java Library
 ## Download
 
 Latest release: [ ![release-shield][] ][release]<br>
-Snapshot versions can be found [here](https://maven.cheos.dev/service/rest/repository/browse/maven-default/net/aether/lib/).
+Snapshot versions can be found [here](https://maven.cheos.dev/service/rest/repository/browse/maven-default/net/aether/lib/). Latest snapshot: [ ![prerelease-shield][] ][prerelease]
 
 Don't forget to replace **VERSION** in the snippets below with the version shown above!
 
