@@ -1,4 +1,4 @@
-package net.aether.lib.misc;
+package net.aether.lib.math;
 
 import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
 
