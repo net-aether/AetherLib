@@ -1,53 +1,28 @@
-import java.awt.Color;
-import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.misc.SimpleTimer;
+import net.aether.lib.math.GeneralVector;
 
 public class Test {
 	
 	@SuppressWarnings("all")
 	public static void main(String[] args) {
-		kilixMain(args);
+		if (args.length > 0) switch (args[0]) {
+			case "kilix":
+				kilixMain(args);
+				break;
+			case "cheos":
+				cheosMain(args);
+		}
+		
 	}
 		
 	public static void kilixMain(String[] args) {
-		SimpleTimer timer = new SimpleTimer();
-		
-		JFrame frame = new JFrame();
-		
-		frame.setContentPane(new JPanel() {
-			public void paint(Graphics graphics) {
-				
-				float r = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 0) + 1) / 2f;
-				float g = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 1) + 1) / 2f;
-				float b = (float) (Math.sin(timer.peek() / 500f + (Math.PI / 3) * 2) + 1) / 2f;
-				
-				frame.setTitle(String.format("r:%.2f g:%.2f b:%.2f", r, g, b));
-				
-				graphics.setColor(new Color(r, g, b));
-				graphics.fillRect(0, 0, getWidth(), getHeight());
-			}
-		});
-		
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(3);
-		frame.setSize(1280, 720);
-				
-		new Thread(() -> {
-			while (true) {
-				frame.repaint();
-				try { Thread.sleep(10); } catch (Exception e) {}
-			}
-		}).start();
-		
+		GeneralVector vect = GeneralVector.fomComponents(1, 2, 4, 8, 16, 32, 64);
+		System.out.println(Arrays.asList(vect.getNAngles(10)));
 	}
 	
 	public static void cheosMain(String[] args) {
