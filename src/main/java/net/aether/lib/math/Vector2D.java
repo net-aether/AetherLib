@@ -36,11 +36,11 @@ public class Vector2D implements IVector {
 	public Vector2D multiply(IVector vector) 	{ return new Vector2D(x * vector.getX().doubleValue(), y * vector.getY().doubleValue()); }
 	public Vector2D divide(IVector vector) 	 	{ return new Vector2D(x / vector.getX().doubleValue(), y / vector.getY().doubleValue()); }
 	public Vector2D multiply(Number multiplier) { return new Vector2D(x * multiplier.doubleValue(), y * multiplier.doubleValue()); }
-	
+		
 	public Vector2D set(int n, Number num) { return new Vector2D(n == 0 ? num : x, n == 1 ? num : y); }
 	public Vector2D copy() { return new Vector2D(x, y); }
 	
 	public static Vector2D cast(IVector vector) { return new Vector2D(vector.getX(), vector.getY()); }
-	public static Vector2D fromComponents(Number x, Number y) { return new Vector2D(x, y); }
-	public static Vector2D fromPolar(Number magnitude, Number angle) { return new Vector2D(magnitude.doubleValue() * Math.cos(angle.doubleValue()), magnitude.doubleValue() * Math.sin(angle.doubleValue())); }
+	public static Vector2D from2DComponents(Number x, Number y) { return new Vector2D(x, y); }
+	public static Vector2D from2DPolar(Number magnitude, Number angle) { return new Vector2D(magnitude.doubleValue() * Math.cos(angle.doubleValue()), magnitude.doubleValue() * Math.sin(angle.doubleValue())); }
 }

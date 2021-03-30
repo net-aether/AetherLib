@@ -4,7 +4,6 @@ import java.util.*;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.math.GeneralVector;
 
 public class Test {
 	
@@ -19,10 +18,9 @@ public class Test {
 		}
 		
 	}
-		
+	
 	public static void kilixMain(String[] args) {
-		GeneralVector vect = GeneralVector.fomComponents(1, 2, 4, 8, 16, 32, 64);
-		System.out.println(Arrays.asList(vect.getNAngles(10)));
+		
 	}
 	
 	public static void cheosMain(String[] args) {

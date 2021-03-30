@@ -100,7 +100,7 @@ public interface IVector {
 	 * @return a new vector with the component values of the components divided to the components of the original vector
 	 */
 	public IVector divide(IVector vector);
-	
+		
 	/**
 	 * Sets the component representing the first dimension<br>
 	 * Convenience Method for calling {@link #set(int, Number) set(0, x)}

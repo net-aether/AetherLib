@@ -59,6 +59,19 @@ public class Vector3D implements IVector {
 	public Vector3D divide(IVector vector) 	  	{ return new Vector3D(x / vector.getX().doubleValue(), y / vector.getY().doubleValue(), z / vector.getZ().doubleValue()); }
 	public Vector3D multiply(Number multiplier) { return new Vector3D(x * multiplier.doubleValue(), y * multiplier.doubleValue(), z * multiplier.doubleValue()); }
 	
+	/**
+	 * Creats the cross product of this and the supplied vector.
+	 * @param vector | only the first 3 components will be used
+	 * @return the resulting vector
+	 */
+	public Vector3D crossProduct(IVector vector) {
+		return Vector3D.from3DComponents(
+				(y * vector.getZ().doubleValue()) - (z * vector.getY().doubleValue()),
+				(z * vector.getX().doubleValue()) - (x * vector.getZ().doubleValue()),
+				(x * vector.getY().doubleValue()) - (y * vector.getX().doubleValue())
+		);
+	}
+	
 	public Vector3D set(int n, Number num) {
 		switch (n) {
 			case 0:  return new Vector3D(num, y, z);
@@ -72,7 +85,7 @@ public class Vector3D implements IVector {
 	
 	public static Vector3D cast(IVector vector) 						{ return new Vector3D(vector.getX(), vector.getY(), vector.getZ()); }
 	public static Vector3D from2DComponents(Number x, Number y) 		{ return new Vector3D(x, y, 0); }
-	public static Vector3D fromComponents(Number x, Number y, Number z) { return new Vector3D(x, y, z); }
+	public static Vector3D from3DComponents(Number x, Number y, Number z) { return new Vector3D(x, y, z); }
 	public static Vector3D from2DPolar(Number magnitude, Number alpha)  {
 		return new Vector3D(
 			magnitude.doubleValue() * Math.cos(alpha.doubleValue()),

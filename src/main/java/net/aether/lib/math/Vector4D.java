@@ -65,9 +65,9 @@ public class Vector4D implements IVector {
 	}
 
 	public Vector4D add(IVector vector) 		{ return new Vector4D(x + vector.getX().doubleValue(), y + vector.getY().doubleValue(), z + vector.getZ().doubleValue(), w + vector.getW().doubleValue()); }
-	public Vector4D subtract(IVector vector) 	{ return new Vector4D(x + vector.getX().doubleValue(), y + vector.getY().doubleValue(), z + vector.getZ().doubleValue(), w + vector.getW().doubleValue()); }
-	public Vector4D multiply(IVector vector) 	{ return new Vector4D(x + vector.getX().doubleValue(), y + vector.getY().doubleValue(), z + vector.getZ().doubleValue(), w + vector.getW().doubleValue()); }
-	public Vector4D divide(IVector vector) 		{ return new Vector4D(x + vector.getX().doubleValue(), y + vector.getY().doubleValue(), z + vector.getZ().doubleValue(), w + vector.getW().doubleValue()); }
+	public Vector4D subtract(IVector vector) 	{ return new Vector4D(x - vector.getX().doubleValue(), y - vector.getY().doubleValue(), z - vector.getZ().doubleValue(), w - vector.getW().doubleValue()); }
+	public Vector4D multiply(IVector vector) 	{ return new Vector4D(x * vector.getX().doubleValue(), y * vector.getY().doubleValue(), z * vector.getZ().doubleValue(), w * vector.getW().doubleValue()); }
+	public Vector4D divide(IVector vector) 		{ return new Vector4D(x / vector.getX().doubleValue(), y / vector.getY().doubleValue(), z / vector.getZ().doubleValue(), w / vector.getW().doubleValue()); }
 	public Vector4D multiply(Number multiplier) {
 		return new Vector4D(
 			x * multiplier.doubleValue(),
