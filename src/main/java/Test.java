@@ -4,6 +4,10 @@ import java.util.*;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
+import net.aether.lib.annotation.EventListener;
+import net.aether.lib.events.EventDispatcher;
+import net.aether.lib.events.MultiEventDispatcher;
+import net.aether.lib.events.SimpleEventDispatcher;
 
 public class Test {
 	
@@ -19,8 +23,25 @@ public class Test {
 		
 	}
 	
+	@EventListener
+	public static void listener(Object event) {
+		System.out.println("Hello from static listener! event = " + event + " (" + event.getClass().getSimpleName() + ")");
+	}
+	
+	@EventListener
+	public void listener2(Object event) {
+		System.out.println("Hello from dynamic listener! event = " + event + " (" + event.getClass().getSimpleName() + ")");
+	}
+	
 	public static void kilixMain(String[] args) {
+		EventDispatcher ed = new SimpleEventDispatcher();
+		ed.registerClass(Test.class);
+		ed.registerObject(new Test());
 		
+		ed.triggerEvent(false);
+		ed.triggerEvent("HELLO :)");
+		ed.triggerEvent(20);
+		ed.triggerEvent(5f);
 	}
 	
 	public static void cheosMain(String[] args) {
