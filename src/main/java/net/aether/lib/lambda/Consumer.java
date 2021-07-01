@@ -20,16 +20,12 @@ public interface Consumer<A> {
 	 * @return a consumer that accepts anything and ignores calls with un-castable objects
 	 */
 	@SuppressWarnings("unchecked")
-	default Consumer<Object> forObject() {
+	default Consumer<Object> generic() {
 		return ((obj) -> {
 			try {
 				call((A) obj);
 			} catch (Exception e) {}
 		});
 	}
-	/**
-	 * @return a consumer that accepts anything and ignores calls with un-castable objects
-	 */
-	default Consumer<?> forGeneric() { return forObject(); }
 	
 }

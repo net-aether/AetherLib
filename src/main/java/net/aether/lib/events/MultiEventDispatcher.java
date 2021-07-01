@@ -14,7 +14,7 @@ public class MultiEventDispatcher extends SimpleEventDispatcher {
 	HashMap<Class<?>, ArrayList<Consumer<Object>>> registeredListeners = new HashMap<>();
 	
 	@Override
-	protected void _dispatch(Class<?> eventType, Object event) {
+	protected void dispatch(Class<?> eventType, Object event) {
 		// don't try to dispatch the event, when no one is listening
 		if (! registeredListeners.containsKey(eventType)) return;
 		
@@ -23,18 +23,18 @@ public class MultiEventDispatcher extends SimpleEventDispatcher {
 	}
 	
 	@Override
-	protected <T> void _register(Class<T> eventType, Consumer<T> listener) {
+	protected void registerInternal(Class<?> eventType, Consumer<?> listener) {
 		registeredListeners.putIfAbsent(eventType, new ArrayList<>());
-		registeredListeners.get(eventType).add(listener.forObject());
+		registeredListeners.get(eventType).add(listener.generic());
 	}
 	
 	@Override
-	protected void _unregister(Class<?> eventType) {
+	protected void unregisterInternal(Class<?> eventType) {
 		registeredListeners.remove(eventType);
 	}
 	
 	@Override
-	protected Iterable<Class<?>> _getApplicableListeners(Object event) {
+	protected Iterable<Class<?>> getApplicableListeners(Object event) {
 		ArrayList<Class<?>> validListeners = new ArrayList<>();
 		registeredListeners.keySet().forEach((Class<?> eventType) -> {
 			if (eventType.isInstance(event)) validListeners.add(eventType);
