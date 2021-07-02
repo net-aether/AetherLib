@@ -1,18 +1,16 @@
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import net.aether.lib.annotation.EventListener;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.annotation.EventListener;
 import net.aether.lib.events.EventDispatcher;
-import net.aether.lib.events.MultiEventDispatcher;
 import net.aether.lib.events.RestrictedEventDispatcher;
-import net.aether.lib.events.SimpleEventDispatcher;
 
+@SuppressWarnings("all")
 public class Test {
 	
-	@SuppressWarnings("all")
 	public static void main(String[] args) {
 		if (args.length > 0) switch (args[0]) {
 			case "kilix":
