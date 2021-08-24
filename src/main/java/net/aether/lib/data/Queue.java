@@ -1,11 +1,16 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
+import net.aether.lib.annotation.Since;
+
 /**
  * Defines the default functionality for standard Queue classes<br>
  * Go to {@link SimpleQueue} for the default implementation
  * 
  * @author Cheos
  */
+@Since(V0_0_1)
 public interface Queue<T> {
 	/**
 	 * Inserts a new element at index <b>idx</b>

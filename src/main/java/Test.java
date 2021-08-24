@@ -1,37 +1,39 @@
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import net.aether.lib.annotation.EventListener;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.debug.PrimitiveTimer;
+import net.aether.lib.events.EventDispatcher;
+import net.aether.lib.events.RestrictedEventDispatcher;
 
+@SuppressWarnings("all")
 public class Test {
 	
-	@SuppressWarnings("all")
 	public static void main(String[] args) {
-		kilixMain(args);
+		if (args.length > 0) switch (args[0]) {
+			case "kilix":
+				kilixMain(args);
+				break;
+			case "cheos":
+				cheosMain(args);
+		}
+		
+	}
+	
+	@EventListener
+	public static void test(String event) {
+		System.out.println("Received static event: " + event);
 	}
 	
 	public static void kilixMain(String[] args) {
+		EventDispatcher ed = new RestrictedEventDispatcher();
 		
-		DebugTimer debug = new DebugTimer();
-		debug.start();
-		PrimitiveTimer timer = new PrimitiveTimer();
+		ed.register(Test.class);
 		
-		debug.intermediate();
-		
-		try { Thread.sleep(1000); } catch (Exception e) {}
-		
-		debug.intermediate();
-		
-		System.out.println("Primitive Timer:" + timer.mark());
-		
-		debug.end();
-		
-		System.out.println(debug.getMicroDiff(0) + "us");
-		System.out.println(debug.getMicroDiff(0, 1) / 1000 + "ms");
-		System.out.println(debug.getMicroDiff(1, true) + "us");
+		ed.triggerEvent("Static!");
+		ed.triggerEvent("Hallo");
 	}
 	
 	public static void cheosMain(String[] args) {

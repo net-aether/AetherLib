@@ -1,7 +1,10 @@
 package net.aether.lib.io;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.io.File;
 
+import net.aether.lib.annotation.Since;
 import net.aether.lib.data.DoubleHashMap;
 
 /**
@@ -14,6 +17,7 @@ import net.aether.lib.data.DoubleHashMap;
  * @author Kilix
  *
  */
+@Since(V0_0_1)
 public class AetherConfigurationLoader {
 
 	/**

@@ -1,6 +1,10 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.List;
+
+import net.aether.lib.annotation.Since;
 
 /**
  * A synchronized implementation of {@link Queue}<br>
@@ -9,6 +13,7 @@ import java.util.List;
  * @author Cheos
  * @see {@link SimpleQueue}
  */
+@Since(V0_0_1)
 public class SynchronizedQueue<T> extends SimpleQueue<T> {
 	public SynchronizedQueue(          ) { super(  ); }
 	public SynchronizedQueue(List<T> of) { super(of); }

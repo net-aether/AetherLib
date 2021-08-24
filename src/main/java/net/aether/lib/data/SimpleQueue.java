@@ -1,8 +1,12 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import net.aether.lib.annotation.Since;
 
 /**
  * The default implementation of {@link Queue}<br><br>
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
  * @author Cheos
  * @see {@link SynchronizedQueue}
  */
+@Since(V0_0_1)
 public class SimpleQueue<T> implements Queue<T> {
 	private final List<QueueElement<T>> queue;
 	

@@ -27,7 +27,7 @@
 
 ## virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/bin/
+bin/
 
 # MAVEN
 target/
@@ -41,3 +41,10 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+## IntelliJ Files
+.idea/
+*.iml
+
+## Vscode
+.vscode/

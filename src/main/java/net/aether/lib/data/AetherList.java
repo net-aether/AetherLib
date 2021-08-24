@@ -1,10 +1,14 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.*;
 
+import net.aether.lib.annotation.Since;
 import net.aether.lib.lambda.BiConsumer;
 import net.aether.lib.lambda.Consumer;
 
+@Since(V0_0_1)
 @SuppressWarnings("unchecked")
 public class AetherList<T> implements List<T> {
 	

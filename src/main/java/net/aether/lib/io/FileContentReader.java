@@ -1,9 +1,13 @@
 package net.aether.lib.io;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.io.*;
 
+import net.aether.lib.annotation.Since;
 import net.aether.lib.data.AetherList;
 
+@Since(V0_0_1)
 public class FileContentReader {
 
 	/**
@@ -17,7 +21,7 @@ public class FileContentReader {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			AetherList<String> out = new AetherList<>();
 			while (reader.ready()) out.add(reader.readLine());
-			reader.close();	
+			reader.close();
 			return out.toStringArray();
 		} catch (Exception e) {
 			return new String[0];

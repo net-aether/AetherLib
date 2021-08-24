@@ -1,9 +1,14 @@
 package net.aether.lib.ui;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.awt.*;
 
 import javax.swing.UIManager;
 
+import net.aether.lib.annotation.Since;
+
+@Since(V0_0_1)
 public class GraphicUtils {
 
 	/**

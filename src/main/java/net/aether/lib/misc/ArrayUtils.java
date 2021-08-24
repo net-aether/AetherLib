@@ -1,12 +1,17 @@
 package net.aether.lib.misc;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.io.PrintStream;
+
+import net.aether.lib.annotation.Since;
 
 /**
  * Provides various utility functions regarding arrays
  * 
  * @author Cheos
  */
+@Since(V0_0_1)
 public class ArrayUtils {
 	/**
 	 * Prints all elements of a string array using <b>stream</b>.
@@ -111,13 +116,14 @@ public class ArrayUtils {
 	
 	/**
 	 * TODO: @kilix document this
-	 * note: arrays[any] may not be null, arrays[any][any] may be null
+	 * Note: arrays[any] may not be null, arrays[any][any] may be null
 	 * @param pad
 	 * @param padding
 	 * @param spacing
 	 * @param arrays
 	 * @return
-	 * @author Cheos (method), Kilix (documentation)
+	 * @author Cheos (method)
+	 * @author Kilix (documentation)
 	 */
 	public static String[] mergeStrings(boolean pad, char padding, int spacing, String[]... arrays) {
 		if (arrays == null)     return null;

@@ -1,6 +1,10 @@
 package net.aether.lib.data;
 
+import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+
 import java.util.*;
+
+import net.aether.lib.annotation.Since;
 
 /**
  * This class stores a list of all Keys, that point to the same Value.<br>
@@ -10,6 +14,7 @@ import java.util.*;
  * @param <K>
  * @param <V>
  */
+@Since(V0_0_1)
 public class DoubleHashMap<K, V> implements Map<K, V> {
 
 	private HashMap<K, V> map 				= new HashMap<>();
