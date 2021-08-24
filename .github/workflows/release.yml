@@ -27,10 +27,10 @@ jobs:
         settings-path: ${{ github.workspace }}/.github/workflows/ # location for the settings.xml file
 
 #    - name: Build with Maven
-#      run: mvn -B package -DversionSuffix="" -f pom.xml
+#      run: mvn -B install -Dclassifier="" -f pom.xml
 
-    - name: Build & Publish to Cheos' Maven Repository
-      run: mvn -B deploy -s ${{ github.workspace }}/.github/workflows/settings.xml -DversionSuffix="" -f pom.xml
+    - name: Publish to Cheos' Maven Repository
+      run: mvn -B deploy -s ${{ github.workspace }}/.github/workflows/settings.xml -Dclassifier="" -f pom.xml
       env:
         MAVEN_USERNAME: ${{ secrets.CHEOS_MAVEN_DEPLOY_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CHEOS_MAVEN_DEPLOY_PASSWORD }}
