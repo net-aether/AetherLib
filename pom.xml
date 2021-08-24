@@ -14,7 +14,7 @@
 	</properties>
 	
 	<build>
-		<finalName>${project.artifactId}-${project.version}${version.suffix}-git-${git.commit.id.abbrev}</finalName>
+		<finalName>${project.artifactId}-${project.version}${versionSuffix}-git-${git.commit.id.abbrev}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
