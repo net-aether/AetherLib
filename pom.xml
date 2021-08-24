@@ -5,7 +5,7 @@
 	
 	<groupId>net.aether</groupId>
 	<artifactId>lib</artifactId>
-	<version>0.0.1${version.suffix}</version>
+	<version>0.0.1</version>
 	<name>AetherLib</name>
 	<description>The AetherLib adds some common classes that are useful in many ways</description>
 	
@@ -14,6 +14,7 @@
 	</properties>
 	
 	<build>
+		<finalName>${project.artifactId}-${project.version}${version.suffix}-git-${git.commit.id.abbrev}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -21,6 +22,26 @@
 				<configuration>
 					<source>11</source>
 					<target>11</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.github.git-commit-id</groupId>
+				<artifactId>git-commit-id-maven-plugin</artifactId>
+				<version>5.0.0</version>
+				<executions>
+					<execution>
+						<id>get-git</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<offline>false</offline>
+					<gitDescribe>
+						<dirty></dirty> <!-- don't care about dirty - we wanna have a usable filename anyways -->
+					</gitDescribe>
 				</configuration>
 			</plugin>
 			<plugin>
