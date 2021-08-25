@@ -84,15 +84,15 @@
 			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>3.0.0-M1</version>
-				<executions>
+				<!-- executions>
 					<execution>
-						<id>deploy</id>
+						<id>default-deploy</id>
 						<phase>deploy</phase>
 						<goals>
 							<goal>deploy</goal>
 						</goals>
 					</execution>
-				</executions>
+				</executions -->
 			</plugin>
 			<!-- plugin>
 				<groupId>org.apache.maven.plugins</groupId>
