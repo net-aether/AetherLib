@@ -29,8 +29,8 @@ jobs:
 #    - name: Build with Maven
 #      run: mvn -B install -Dclassifier="" -f pom.xml
 
-    - name: Publish to Cheos' Maven Repository
-      run: mvn -B deploy -s ${{ github.workspace }}/.github/workflows/settings.xml -Dclassifier="" -f pom.xml
+    - name: Build & Publish to Cheos' Maven Repository
+      run: mvn -B deploy -s ${{ github.workspace }}/.github/workflows/settings.xml -f pom.xml # -Dclassifier=""
       env:
         MAVEN_USERNAME: ${{ secrets.CHEOS_MAVEN_DEPLOY_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CHEOS_MAVEN_DEPLOY_PASSWORD }}
