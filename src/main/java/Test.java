@@ -1,12 +1,10 @@
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import net.aether.lib.annotation.EventListener;
+import net.aether.lib.concurrent.JSPromise;
 import net.aether.lib.data.Queue;
 import net.aether.lib.data.SimpleQueue;
 import net.aether.lib.debug.DebugTimer;
-import net.aether.lib.events.EventDispatcher;
-import net.aether.lib.events.RestrictedEventDispatcher;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @SuppressWarnings("all")
 public class Test {
@@ -19,21 +17,32 @@ public class Test {
 			case "cheos":
 				cheosMain(args);
 		}
-		
-	}
-	
-	@EventListener
-	public static void test(String event) {
-		System.out.println("Received static event: " + event);
 	}
 	
 	public static void kilixMain(String[] args) {
-		EventDispatcher ed = new RestrictedEventDispatcher();
 		
-		ed.register(Test.class);
+		JSPromise.<String>completeAsync((success, fail) -> {
+			if (args.length > 1) success.accept(args[1]);
+			fail.accept(new NullPointerException("No second argument found"));
+		}).then(argument -> {
+			System.out.println("Second argument: " + argument);
+			return argument.length();
+		}).then(length -> {
+			System.out.println("Which is " + length + " characters long.");
+		}).catchError(Throwable::printStackTrace);
 		
-		ed.triggerEvent("Static!");
-		ed.triggerEvent("Hallo");
+		var promise = JSPromise.<String>completeAsync((success, fail) -> {
+			throw new NullPointerException("HEHE");
+		});
+		
+		promise.then(argument -> {
+			System.out.println("Second argument: " + argument);
+			return argument.length();
+		}).then(length -> {
+			System.out.println("Which is " + length + " characters long.");
+		}).catchError(err -> System.out.println("Encountered " + err.getClass().getSimpleName() + " while executing"));
+		
+		System.out.println(promise);
 	}
 	
 	public static void cheosMain(String[] args) {
@@ -45,7 +54,7 @@ public class Test {
 		Random rnjesus = new Random();
 		
 		Queue<Integer> q = new SimpleQueue<>();
-
+		
 		dt.start();
 		
 		for (int i = 0; i < 20; i++) {

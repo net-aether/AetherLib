@@ -12,7 +12,7 @@ import net.aether.lib.annotation.Since;
  * @author Cheos (fixes)
  */
 @Since(V0_0_1)
-public final class Void implements Cloneable, Serializable {
+public final class Void implements Cloneable, Serializable { // TODO proposed rename to "Nothing" or "None" or sth like that... but not "Void"
 	private static final long serialVersionUID = -4373520499076578529L;
 	
 	/**

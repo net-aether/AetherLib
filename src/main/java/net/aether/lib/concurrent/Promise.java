@@ -3,8 +3,9 @@ package net.aether.lib.concurrent;
 import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
 
 import net.aether.lib.annotation.Since;
-import net.aether.lib.lambda.Consumer;
-import net.aether.lib.lambda.Provider;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 
@@ -14,10 +15,10 @@ import net.aether.lib.lambda.Provider;
  * @param <T>
  */
 @Since(V0_0_1)
-public class Promise<T> implements Provider<T> {
+public class Promise<T> implements Supplier<T> {
 	protected static int counter = 0;
 	
-	protected Consumer<T>         consumer;
+	protected Consumer<T> consumer;
 	protected Consumer<Throwable> onError;
 	
 	protected Thread              thread;
@@ -27,13 +28,13 @@ public class Promise<T> implements Provider<T> {
 	
 	protected Promise() { }
 	
-	public Promise(Provider<? extends T> provider) {
+	public Promise(Supplier<? extends T> supplier) {
 		thread = new Thread(() -> {
-			result = provider.get();
-			if (consumer!= null) consumer.call(result);
+			result = supplier.get();
+			if (consumer!= null) consumer.accept(result);
 			fulfilled = true;
 		}, String.format("Promise#%08x", counter++));
-		thread.setUncaughtExceptionHandler((Thread thread, Throwable throwable) -> { if (onError != null) onError.call(throwable); });
+		thread.setUncaughtExceptionHandler((Thread thread, Throwable throwable) -> { if (onError != null) onError.accept(throwable); });
 		thread.start();
 	}
 	
@@ -46,13 +47,13 @@ public class Promise<T> implements Provider<T> {
 	
 	/**
 	 * Awaits the result, or times out after the supplied milliseconds have passed, returning null;
-	 * @param the time in milliseconds
+	 * @param millis the time in milliseconds
 	 * @return the result
 	 */
 	public T get(long millis) {
 		try {
 			thread.join(millis);
-		} catch (Exception e) { if (onError != null) onError.call(e); }
+		} catch (Exception e) { if (onError != null) onError.accept(e); }
 		return result;
 	}
 	
@@ -152,10 +153,10 @@ public class Promise<T> implements Provider<T> {
 	@Since(V0_0_1)
 	public static class Fake<T> extends Promise<T> {
 
-		public Fake(Provider<? extends T> provider) {
+		public Fake(Supplier<? extends T> supplier) {
 			super();
-			result = provider.get();
-			if (consumer!= null) consumer.call(result);
+			result = supplier.get();
+			if (consumer!= null) consumer.accept(result);
 			fulfilled = true;
 			interrupting = true;
 		}
@@ -165,7 +166,7 @@ public class Promise<T> implements Provider<T> {
 		
 		@Override
 		public synchronized Promise<T> then(Consumer<T> consumer) {
-			consumer.call(result);
+			consumer.accept(result);
 			return this;
 		}
 		
