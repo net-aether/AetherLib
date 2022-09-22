@@ -1,17 +1,12 @@
 package net.aether.lib.data;
 
-import net.aether.lib.annotation.Since;
-
 import java.util.function.Supplier;
-
-import static net.aether.lib.misc.AetherLibVersion.*;
 
 /**
  * Class for wrapping any object.
  * 
  * @author Cheos
  */
-@Since(V0_0_1)
 public class Wrapper<T> implements Supplier<T> {
 	private T wrapped;
 	private final boolean fin;

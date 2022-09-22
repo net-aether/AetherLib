@@ -1,13 +1,11 @@
 package net.aether.lib.concurrent;
 
-import net.aether.lib.annotation.Since;
-
 import java.util.*;
 import java.util.function.*;
 
 public class JSPromise<Type> {
 	
-	public enum State {PENDING, SUCCESS, ERROR}
+	public enum State { PENDING, SUCCESS, ERROR }
 	
 	private final Set<Consumer<Type>> successSet = new HashSet<>();
 	private final Set<ErrorConsumer> handlerSet = new HashSet<>();
@@ -76,6 +74,7 @@ public class JSPromise<Type> {
 		
 		Thread execThread = new Thread(() -> executor.accept(out.success, out.fail), "PromiseThread-" + UUID.randomUUID());
 		execThread.setUncaughtExceptionHandler((thread, err) -> out.fail.accept(err));
+		execThread.setDaemon(true);
 		execThread.start();
 		
 		return out;

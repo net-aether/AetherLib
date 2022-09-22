@@ -1,10 +1,6 @@
-package net.aether.lib.debug;
-
-import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
+package net.aether.lib.timer;
 
 import java.util.concurrent.TimeUnit;
-
-import net.aether.lib.annotation.Since;
 
 /**
  * {@link DebugTimer} version 2<br><br>
@@ -13,10 +9,9 @@ import net.aether.lib.annotation.Since;
  * This timer has little code overhead<br>
  * Reading from this timer is not optimized and should not be done while recording timestamps
  * 
- * @see {@link PrimitiveTimer} for a simple to use, general purpose timer
+ * @see {@link SimpleTimer} for a simple-to-use, general purpose timer
  * @author Cheos
  */
-@Since(V0_0_1)
 public class DebugTimer {
 	protected boolean started = false,
 			          stopped   = false;
@@ -425,7 +420,7 @@ public class DebugTimer {
 		}
 		
 		/**
-		 * This method is equal to calling {@link getEnd(TimeUnit) getEnd(TimeUnit.NANOSECONDS)} but with less code overhead
+		 * This method is equal to calling {@link #getEnd(TimeUnit) getEnd(TimeUnit.NANOSECONDS)} but with less code overhead
 		 * @return the end time of this split, in nanoseconds
 		 */
 		public long getEnd() {

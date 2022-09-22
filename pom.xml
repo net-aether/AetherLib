@@ -7,7 +7,7 @@
 	<artifactId>lib</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>AetherLib</name>
-	<description>The AetherLib adds some common classes that are useful in many ways</description>
+	<description>The AetherLib adds some "common" classes that are useful in many ways</description>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -21,8 +21,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -113,7 +113,25 @@
 		<url>scm:git:git@github.com:AetherialKilix/AetherLib.git</url>
 		<developerConnection>scm:git:git@github.com:AetherialKilix/AetherLib.git</developerConnection>
 	</scm -->
-
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+	</dependencies>
+	
+	
 	<distributionManagement>
 		<snapshotRepository>
 			<id>cheos-repo</id>
