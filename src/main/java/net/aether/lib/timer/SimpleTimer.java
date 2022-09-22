@@ -1,4 +1,4 @@
-package net.aether.lib.misc;
+package net.aether.lib.timer;
 
 /**
  * Offers a simple timer

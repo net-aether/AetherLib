@@ -1,9 +1,5 @@
 package net.aether.lib.concurrent;
 
-import static net.aether.lib.misc.AetherLibVersion.V0_0_1;
-
-import net.aether.lib.annotation.Since;
-
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -14,7 +10,6 @@ import java.util.function.Supplier;
  *
  * @param <T>
  */
-@Since(V0_0_1)
 public class Promise<T> implements Supplier<T> {
 	protected static int counter = 0;
 	
@@ -35,6 +30,7 @@ public class Promise<T> implements Supplier<T> {
 			fulfilled = true;
 		}, String.format("Promise#%08x", counter++));
 		thread.setUncaughtExceptionHandler((Thread thread, Throwable throwable) -> { if (onError != null) onError.accept(throwable); });
+		thread.setDaemon(true);
 		thread.start();
 	}
 	
@@ -43,7 +39,7 @@ public class Promise<T> implements Supplier<T> {
 	 * @return the result
 	 */
 	@Override
-	public T get() { return get(0L); };
+	public T get() { return get(0L); }
 	
 	/**
 	 * Awaits the result, or times out after the supplied milliseconds have passed, returning null;
@@ -150,13 +146,12 @@ public class Promise<T> implements Supplier<T> {
 	 * 
 	 * @author Cheos
 	 */
-	@Since(V0_0_1)
 	public static class Fake<T> extends Promise<T> {
 
 		public Fake(Supplier<? extends T> supplier) {
 			super();
 			result = supplier.get();
-			if (consumer!= null) consumer.accept(result);
+			if (consumer != null) consumer.accept(result);
 			fulfilled = true;
 			interrupting = true;
 		}
