@@ -55,6 +55,6 @@ repositories {
 }
 
 dependencies {
-    compile 'net.aether:lib:VERSION'
+    implementation 'net.aether:lib:VERSION'
 }
 ```
