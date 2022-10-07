@@ -84,14 +84,14 @@ public class ClassScanner { // TODO scan method signatures for annotations, too 
 			@Override
 			public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
 				name = name.replaceAll("/", ".");
-				if (isInterface)
+				if (isInterface) {
 					for (String interf : interfaces)
 						if (interf != null && interf.equals(superOrInterfaceName)) {
 							classnames.add(name);
 							break;
 						}
-						else if (superName != null && superName.equals(superOrInterfaceName))
-							classnames.add(name);
+				} else if (superName != null && superName.equals(superOrInterfaceName))
+					classnames.add(name);
 			}
 		};
 		
